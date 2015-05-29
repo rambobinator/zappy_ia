@@ -313,6 +313,7 @@ void	Welcome::parseAnswer(std::string answer){
 		space = answer.find(" ");
 		this->_client->map_x = stoi(answer.substr(0, space));
 		this->_client->map_y =  stoi(answer.substr(space + 1, answer.size() - space));
+		this->_client->map = new Map(this->_client->map_x, this->_client->map_y);
 		std::cout << this->_client->map_x << " " << this->_client->map_y << "fin " << std::endl;
 		this->_client->list_cmd.remove(this);
 		delete(this);

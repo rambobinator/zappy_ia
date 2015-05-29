@@ -12,7 +12,7 @@
 
 NAME = client
 
-SRC = main.cpp Buffer.cpp Client.cpp Icmd.cpp Inventory.cpp
+SRC = main.cpp Buffer.cpp Client.cpp Icmd.cpp Inventory.cpp Map.cpp
 
 all: $(NAME)
 
