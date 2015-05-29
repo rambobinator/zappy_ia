@@ -14,7 +14,7 @@
 #include <iostream>
 #include "buffer.hpp"
 
-Buffer::Buffer() : start(0), end(0), buff(std::string(BUFF_SIZE, '\0')) {
+Buffer::Buffer() : buff(std::string(BUFF_SIZE, '\0')), start(0), end(0) {
 
 }
 

@@ -92,7 +92,7 @@ void	Client::test_read(void) {
 
 void	Client::process_read(void) {
 	std::string		tmp;
-	int				nb;
+	size_t			nb;
 
 	tmp = this->buf_read.to_str();
 													std::cout << tmp << std::endl;
