@@ -23,10 +23,9 @@ class Map {
 public:
 	Map(int x, int y);
 	~Map(void);
-	void 	fill_map(std::string str);
-	void 	fill_case(std::string str, int tile);
+	// void 	fill_map(std::string str);
+	// void 	fill_case(std::string str, int tile);
 	Point	get_coord(int tile);
-	int		get_etage(int tile);
 	std::vector<std::vector<Inventory*>>		map;
 	int											x;
 	int											y;
