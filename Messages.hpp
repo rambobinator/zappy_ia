@@ -12,9 +12,7 @@ enum	e_states
 	END,
 	ROLL_CALL,
 	PRESENT,
-	STEP1,
-	STEP2,
-	STEP3
+	CMD_CALLBACK_NBR
 };
 
 class Message

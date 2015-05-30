@@ -16,8 +16,12 @@
 
 Client::Client(char **av) : team_name(av[1]), args(av) {
 	id = getpid();
+	coop_nbr = 0;
 	inventory.init_player_stuff();
+	coord = new Point(0, 0);
 	msgs = new Messages(av[1], id, &inventory);
+	msgs_callback[ROLL_CALL] = &Client::send_present;
+	msgs_callback[PRESENT] = &Client::count_team;
 	this->sock = this->connect(av[3], av[2]);
 	this->cmd_tab = {
 		{"message", &Client::cmd_broadcast},
@@ -142,21 +146,49 @@ void	Client::new_client(void) {
 		execve("client", this->args, NULL);
 }
 
-void	Client::cmd_broadcast(std::string cmd) {
+void	Client::read_messages(void){ /*STACK THE RIGHT CMD DEPENDING ON THE ORDERS*/
+	std::string			buf;
+	std::stringstream	ss;
+	int					callback_code;
+
+	for (std::list<Message *>::iterator it = msgs->recv.begin(); it != msgs->recv.end(); it++)
+	{
+		if (!(*it)->read)
+		{
+			ss.str((*it)->data);
+			while (ss >> buf)
+			{
+				callback_code = stoi(buf);
+				if (callback_code > 0 && callback_code < CMD_CALLBACK_NBR)
+					(*this.*msgs_callback[callback_code])(*it); /*WTF*/
+			}
+			(*it)->read = true;
+			std::cout << *msgs;/*RM*/
+
+		}
+	}
+}
+
+void	Client::cmd_broadcast(std::string cmd) {/*CLIENT RECEIVE <message>*/
 	msgs->receive(cmd);
+
+	/*HERE SHOULD DEFINE IF THE ACTUAL GOAL ISN'T BLOCKING*/
+	/*if ...*/
+	read_messages();
 }
 
-void	Client::cmd_die(std::string cmd) {
+void	Client::cmd_die(std::string cmd) {/*CLIENT RECEIVE <mort>*/
 	(void)cmd;
-	std::cout << "DIED" << std::endl;
+	quit();
 }
 
-void	Client::cmd_expulse(std::string cmd) {
+void	Client::cmd_expulse(std::string cmd) {/*CLIENT RECEIVE <deplacement>*/
 	(void)cmd;
 	std::cout << "EXPULSED" << std::endl;
 }
 
-void	Client::cmd_answer(std::string cmd) {
+void	Client::cmd_answer(std::string cmd) {/*CLIENT RECEIVE AN OTHER CMD*/
+	(void)cmd;
 	std::list<Icmd*>::iterator	tmp;
 
 	if (cmd.compare("BIENVENUE") == 0)
@@ -171,4 +203,18 @@ void	Client::cmd_answer(std::string cmd) {
 			tmp++;
 		}
 	}
+}
+/*CALLBACK IMPLEMENTATIONS*/
+
+void		Client::send_present(Message *mes){
+	(void)mes;
+	list_cmd.push_back(new Broadcast(*this, args2string(1, PRESENT)));
+}
+
+void		Client::count_team(Message *mes){
+	others.push_back(new Coop(mes->id, mes->dir, mes->team, mes->inventory));
+	/*
+		HERE SORT OTHERS LIST BY ID AND THEN UNIQUE !!!!
+	*/
+	std::cout << "WE ARE " << others.size() << " CURRENTLY IN GAME " << std::endl; /*DEBUG BUT WORKING :)*/
 }

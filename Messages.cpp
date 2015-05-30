@@ -41,7 +41,6 @@ void			Messages::receive(std::string cmd){
 	tmp->data = data;
 	tmp->inventory.setData(ss);
 	recv.push_front(tmp);
-	std::cout << *this;
 }
 
 std::string			Messages::sending(std::string cmd){

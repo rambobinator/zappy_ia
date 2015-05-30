@@ -12,12 +12,7 @@
 
 #include <vector>
 #include "Inventory.hpp"
-
-class Point {
-public:
-	int x;
-	int y;
-};
+#include "Point.hpp"
 
 class Map {
 public:

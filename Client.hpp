@@ -25,11 +25,15 @@
 #include "Inventory.hpp"
 #include "Messages.hpp"
 #include "Map.hpp"
+#include "Point.hpp"
+#include "Coop.hpp"
 
 class Icmd;
 
 class Client
 {
+	typedef void (Client::*Callback)(Message *);
+
 	public:
 		Client(){};
 		Client(char **av);
@@ -39,8 +43,9 @@ class Client
 		Inventory			inventory;
 		Buffer				buf_read;
 		Buffer				buf_write;
-		Messages			*msgs;
+		Point				*coord;/*RELATIVE FROM BEGINING*/
 		Map					*map;
+		std::list<Coop *>	others;
 		int					id;
 		int					sock;
 		int					remaining_slots;
@@ -61,7 +66,14 @@ class Client
 		int					connect(std::string ip, std::string port);
 		void				new_client(void);
 
+		int					coop_nbr;
+		Messages			*msgs;
+		Callback			msgs_callback[CMD_CALLBACK_NBR];
+		/*CALLBACK*/
+		void				send_present(Message *);
+		void				count_team(Message *);
 		/*DIRECT CMD*/
+		void				read_messages(void);
 		void				cmd_broadcast(std::string cmd);
 		void				cmd_die(std::string cmd);
 		void				cmd_expulse(std::string cmd);
