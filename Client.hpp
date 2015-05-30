@@ -23,6 +23,7 @@
 #include <string>
 #include "Buffer.hpp"
 #include "Inventory.hpp"
+#include "Messages.hpp"
 #include "Map.hpp"
 
 class Icmd;
@@ -38,7 +39,9 @@ class Client
 		Inventory			inventory;
 		Buffer				buf_read;
 		Buffer				buf_write;
+		Messages			*msgs;
 		Map					*map;
+		int					id;
 		int					sock;
 		int					remaining_slots;
 		int					map_x;

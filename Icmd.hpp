@@ -39,6 +39,9 @@
 
 #include <iostream>
 #include "client.hpp"
+#include "Messages.hpp"
+
+std::string			args2string(int data, ...);
 
 class Icmd
 {
@@ -139,11 +142,15 @@ class Expulse : public Icmd
 class Broadcast : public Icmd
 {
 	public:
-		Broadcast();
+		Broadcast(Client &new_client);
+		Broadcast(Client &new_client, std::string args);
 		~Broadcast();
 		std::string	getCmd();
 		void		execute();
 		void		parseAnswer(std::string);
+
+	private:
+		std::string	_args;
 };
 
 class Incantation : public Icmd

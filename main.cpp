@@ -11,6 +11,6 @@ int		main(int ac, char **av)
 	}
 	Client	c(av);
 	c.loop_client();
-	
+
 	return (0);
 }

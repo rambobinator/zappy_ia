@@ -189,22 +189,31 @@ void	Expulse::parseAnswer(std::string answer){
 }
 /*____________________________________*/
 /*______________________________BROADCAST*/
-Broadcast::Broadcast(){
+Broadcast::Broadcast(Client &new_client){
 	_done = false;
 	_delay = BROADCAST_DELAY;
 	_cmd_name = BROADCAST_NAME;
+	_client = &new_client;
+};
+
+Broadcast::Broadcast(Client &new_client, std::string args){
+	_done = false;
+	_delay = BROADCAST_DELAY;
+	_cmd_name = BROADCAST_NAME;
+	_client = &new_client;
+	_args = args;
 };
 
 Broadcast::~Broadcast(){};
 
 std::string	Broadcast::getCmd(){
-	_cmd_final = _cmd_name + "\n";
+	_cmd_final = _cmd_name + _args;
 	return (_cmd_final);
 }
 
 void	Broadcast::execute(){
 	_done = true;
-	std::cout << getCmd();/*ADD IN BUF INSTEAD*/
+	_client->buf_write.add(_client->msgs->sending(getCmd()));
 };
 
 void	Broadcast::parseAnswer(std::string answer){
@@ -313,11 +322,11 @@ void	Welcome::parseAnswer(std::string answer){
 		space = answer.find(" ");
 		this->_client->map_x = stoi(answer.substr(0, space));
 		this->_client->map_y =  stoi(answer.substr(space + 1, answer.size() - space));
-		this->_client->map = new Map(this->_client->map_x, this->_client->map_y);
 		std::cout << this->_client->map_x << " " << this->_client->map_y << "fin " << std::endl;
 		this->_client->list_cmd.remove(this);
+		if (_client->remaining_slots <= 0)
+			_client->list_cmd.push_back(new Broadcast(*_client, args2string(1, ROLL_CALL)));
 		delete(this);
 	}
 }
 /*____________________________________*/
-

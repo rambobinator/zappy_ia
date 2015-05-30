@@ -15,6 +15,9 @@
 #include "Icmd.hpp"
 
 Client::Client(char **av) : team_name(av[1]), args(av) {
+	id = getpid();
+	inventory.init_player_stuff();
+	msgs = new Messages(av[1], id, &inventory);
 	this->sock = this->connect(av[3], av[2]);
 	this->cmd_tab = {
 		{"message", &Client::cmd_broadcast},
@@ -95,7 +98,6 @@ void	Client::process_read(void) {
 	size_t			nb;
 
 	tmp = this->buf_read.to_str();
-													std::cout << tmp << std::endl;
 	while ((nb = tmp.find("\n")) != std::string::npos) {
 		this->parse_cmd(tmp.substr(0, nb));
 		tmp.erase(0, nb + 1);
@@ -141,8 +143,7 @@ void	Client::new_client(void) {
 }
 
 void	Client::cmd_broadcast(std::string cmd) {
-	(void)cmd;
-	std::cout << "BRODCASTED" << std::endl;
+	msgs->receive(cmd);
 }
 
 void	Client::cmd_die(std::string cmd) {
@@ -158,14 +159,12 @@ void	Client::cmd_expulse(std::string cmd) {
 void	Client::cmd_answer(std::string cmd) {
 	std::list<Icmd*>::iterator	tmp;
 
-	std::cout << "cmd_answer: " << cmd << std::endl;
 	if (cmd.compare("BIENVENUE") == 0)
 		this->list_cmd.push_back(new Welcome(*this));
 	else {
 		tmp = this->list_cmd.begin();
 		while (tmp != this->list_cmd.end()) {
 			if ((*tmp)->_done == true) {
-				std::cout << "DONE" << std::endl;
 				(*tmp)->parseAnswer(cmd);
 				return ;
 			}
