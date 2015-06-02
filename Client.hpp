@@ -27,6 +27,7 @@
 #include "Map.hpp"
 #include "Point.hpp"
 #include "Coop.hpp"
+#include "Ia.hpp"
 
 class Icmd;
 
@@ -40,7 +41,9 @@ class Client
 		~Client();
 		Client &			operator=(const Client & obj);
 		std::list<Icmd*>	list_cmd;
+		Ia					ia;
 		Inventory			inventory;
+		Inventory			needs;
 		Buffer				buf_read;
 		Buffer				buf_write;
 		Point				*coord;/*RELATIVE FROM BEGINING*/
@@ -66,7 +69,6 @@ class Client
 		int					connect(std::string ip, std::string port);
 		void				new_client(void);
 
-		int					coop_nbr;
 		Messages			*msgs;
 		Callback			msgs_callback[CMD_CALLBACK_NBR];
 		/*CALLBACK*/

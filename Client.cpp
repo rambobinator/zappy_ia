@@ -15,8 +15,8 @@
 #include "Icmd.hpp"
 
 Client::Client(char **av) : team_name(av[1]), args(av) {
+	ia.role = ALONE;
 	id = getpid();
-	coop_nbr = 0;
 	inventory.init_player_stuff();
 	coord = new Point(0, 0);
 	msgs = new Messages(av[1], id, &inventory);
