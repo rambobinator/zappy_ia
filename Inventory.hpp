@@ -15,6 +15,9 @@ class Inventory
 		void			init_player_stuff(void);
 		std::map<std::string, int>	getData(void)const;
 		void						setData(std::stringstream &ss);
+		void						setData(std::string str);
+		void						resetData(void);
+		void						print(void);
 
 	private:
 		std::map<std::string, int>	_data;

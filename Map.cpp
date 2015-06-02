@@ -12,52 +12,135 @@
 
 #include "Map.hpp"
 
-Map::Map(int x, int y) : map(std::vector<std::vector<Inventory*>>(
-	x, std::vector<Inventory*>(y, new Inventory()))) {
+Map::Map(int x, int y) {
+	int						i;
+	int						j;
+	std::vector<Inventory*>	*tmp;
 	this->x = 0;
 	this->y = 0;
 	this->direction = 0;
+	this->map_x = x;
+	this->map_y = y;
+	i = 0;
+	while (i < this->map_x) {
+		j = 0;
+		tmp = new std::vector<Inventory*>();
+		while (j < this->map_y) {
+			tmp->push_back(new Inventory());
+			j++;
+		}
+		this->map.push_back(tmp);
+		i++;
+	}
 }
 
 Map::~Map() {}
 
-// void	Map::fill_map(std::string str) {
-// 	int			nb_case;
-// 	int			first;
-// 	int			last;
-// 	std::string	tmp;
+void						Map::fill_case(Point p, std::string str) {
+	Point	a;
 
-// 	nb_case = 0;
-// 	tmp = str.substr(1, str.size() - 1);
-// 	// while (tmp.find(""))
-// }
+	if (this->direction == 0)
+		a = this->normalizer({this->x + p.x, this->y + p.y});
+	else if (this->direction == 1)
+		a = this->normalizer({this->x + p.y, this->y - p.x});
+	else if (this->direction == 2)
+		a = this->normalizer({this->x - p.x, this->y - p.y});
+	else if (this->direction == 3)
+		a = this->normalizer({this->x - p.y, this->y + p.x});
+	this->map[a.x][a.y]->setData(str);
+}
 
-Point	Map::get_coord(int tile) {
-	int		level = 0;
-	int		max_level = 8;
-	int		i;
-	int		j;
-	int		nb;
-	Point	ret;
+Point		Map::normalizer(Point p) {
+	if (p.x >= this->map_x)
+		p.x = p.x % this->map_x;
+	else if (p.x < 0)
+		p.x = this->map_x + p.x;
+	if (p.y >= this->map_y)
+		p.y = p.y % this->map_y;
+	else if (p.y < 0)
+		p.y = this->map_y + p.y;
+	return (p);
 
+}
+
+std::vector<std::string>	Map::parse_str(std::string str) {
+	int							nb_case;
+	int							last;
+	std::string					tmp;
+	std::vector<std::string>	vec;	
+
+
+	nb_case = 0;
+	tmp = str.substr(1, str.size() - 2);
+	while ((last = tmp.find(",")) != (int)tmp.npos) {
+		vec.push_back(tmp.substr(0, last));
+		tmp.erase(0, last + 1);
+		nb_case++;
+	}
+
+	vec.push_back(tmp);
+	last = 0;
+	return (vec);
+}
+
+void						Map::fill_map(std::string str) {
+	std::vector<std::string>	vec;
+	int							level;
+	int							max;
+	int							nb;
+	int							i;
+	int							j;
+	Point						ret;
+
+	vec = this->parse_str(str);
+	max = vec.size();
 	i = 0;
+	level = 0;
 	nb = 0;
-	ret.x = -1;
-	ret.y = -1;
-	while (i <= max_level) {
+	while (nb < max) {
 		j = -level;
 		while (j <= level) {
-			if (tile == nb) {
-				ret.x = j;
-				ret.y = i;
-				return (ret);
-			}
+			ret.x = j;
+			ret.y = i;
+			this->fill_case(ret, vec[nb]);
 			nb++;
 			j++;
 		}
 		i++;
 		level++;
 	}
-	return (ret);
 }
+
+// void					Map::print() {
+// 	int		i;
+// 	int		j;
+
+// 	i = 0;
+// 	while (j < this->map_y) {
+// 		j = 0;
+// 		while (i < this->map_x) {
+// 			this->map[i][j]->print();
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
+
+// int		main() {
+// 	Map a(3, 3);
+// 	a.map[2][2]->resetData();
+// 	a.fill_map("{nourriture, joueur sibur, phiras phiras, }");
+// 	a.print();
+// }
+
+
+
+
+
+
+
+
+
+
+
 

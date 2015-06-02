@@ -18,10 +18,16 @@ class Map {
 public:
 	Map(int x, int y);
 	~Map(void);
-	// void 	fill_map(std::string str);
-	// void 	fill_case(std::string str, int tile);
-	Point	get_coord(int tile);
-	std::vector<std::vector<Inventory*>>		map;
+	void 						fill_map(std::string str);
+	std::vector<std::string>	parse_str(std::string str);
+	Point						get_coord(int tile);
+	void						fill_case(Point p, std::string str);
+	void						print(void);
+	Point						normalizer(Point p);
+
+	std::vector<std::vector<Inventory*>*>		map;
+	int											map_x;
+	int											map_y;
 	int											x;
 	int											y;
 	int											direction;

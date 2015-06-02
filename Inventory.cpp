@@ -44,3 +44,41 @@ void						Inventory::setData(std::stringstream &ss){
 		it.second = stoi(buf);
 	}
 }
+
+void						Inventory::setData(std::string str) {
+	int				last;
+	std::string		tmp;
+
+	this->resetData();
+	while ((last = str.find(" ")) != (int)str.npos) {
+		tmp = str.substr(0, last);
+		if (this->_data.find(tmp) != this->_data.end())
+			this->_data[tmp]++;
+		str.erase(0, last + 1);
+	}
+	tmp = str;
+	if (this->_data.find(tmp) != this->_data.end()) {
+		this->_data[tmp]++;
+	}
+}
+
+void						Inventory::resetData(void) {
+	_data["nourriture"] = 0;
+	_data["linemate"] = 0;
+	_data["deraumere"] = 0;
+	_data["sibur"] = 0;
+	_data["mendiane"] = 0;
+	_data["phiras"] = 0;
+	_data["thystame"] = 0;
+}
+
+void						Inventory::print(void) {
+	std::map<std::string, int>::iterator	it;
+
+	it = this->_data.begin();
+	while (it != this->_data.end()) {
+		std::cout << it->first << " => ";
+		std::cout << it->second << std::endl;
+		it++;
+	}
+}
