@@ -12,10 +12,11 @@
 
 #include "Map.hpp"
 
-Map::Map(int x, int y) {
+Map::Map(int x, int y) : map(std::vector<std::vector<Inventory*>>(x,
+	std::vector<Inventory*>(y, NULL))) {
 	int						i;
 	int						j;
-	std::vector<Inventory*>	*tmp;
+
 	this->x = 0;
 	this->y = 0;
 	this->direction = 0;
@@ -24,12 +25,10 @@ Map::Map(int x, int y) {
 	i = 0;
 	while (i < this->map_x) {
 		j = 0;
-		tmp = new std::vector<Inventory*>();
 		while (j < this->map_y) {
-			tmp->push_back(new Inventory());
+			this->map[i][j] = new Inventory();
 			j++;
 		}
-		this->map.push_back(tmp);
 		i++;
 	}
 }
@@ -111,36 +110,24 @@ void						Map::fill_map(std::string str) {
 	}
 }
 
-// void					Map::print() {
-// 	int		i;
-// 	int		j;
+void						Map::print() {
+	int		i;
+	int		j;
 
-// 	i = 0;
-// 	while (j < this->map_y) {
-// 		j = 0;
-// 		while (i < this->map_x) {
-// 			this->map[i][j]->print();
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
+	j = 0;
+	while (j < this->map_y) {
+		i = 0;
+		while (i < this->map_x) {
+			this->map[i][j]->print();
+			i++;
+		}
+		j++;
+	}
+}
 
-// int		main() {
-// 	Map a(3, 3);
-// 	a.map[2][2]->resetData();
-// 	a.fill_map("{nourriture, joueur sibur, phiras phiras, }");
-// 	a.print();
-// }
-
-
-
-
-
-
-
-
-
-
-
-
+int		main() {
+	Map a(3, 3);
+	a.map[2][2]->resetData();
+	a.fill_map("{nourriture, joueur sibur, phiras phiras, }");
+	a.print();
+}

@@ -25,7 +25,7 @@ public:
 	void						print(void);
 	Point						normalizer(Point p);
 
-	std::vector<std::vector<Inventory*>*>		map;
+	std::vector<std::vector<Inventory*>>		map;
 	int											map_x;
 	int											map_y;
 	int											x;
