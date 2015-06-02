@@ -124,10 +124,3 @@ void						Map::print() {
 		j++;
 	}
 }
-
-int		main() {
-	Map a(3, 3);
-	a.map[2][2]->resetData();
-	a.fill_map("{nourriture, joueur sibur, phiras phiras, }");
-	a.print();
-}
