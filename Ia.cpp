@@ -3,18 +3,18 @@
 
 Ia::Ia( void )
 {
+	role = ALONE;
 	/*ROLES PTRS*/
 	role_funct[ALONE] = &Ia::role_alone;
 	role_funct[MOTHER] = &Ia::role_mother;
 	role_funct[FEEDER] = &Ia::role_feeder;
 	role_funct[PICKER] = &Ia::role_picker;
 
-	/*POWER PTRS*/
-	/*---->ALONE*/
+	/*ALONE*/
 	alone_funct[ALONE_INIT] = &Ia::alone_init;
-	alone_funct[ALONE_VOIR] = &Ia::alone_init;
-	alone_funct[ALONE_PICKUP] = &Ia::alone_init;
-	alone_funct[ALONE_GOTO] = &Ia::alone_init;
+	alone_funct[ALONE_VOIR] = &Ia::alone_voir;
+	alone_funct[ALONE_PICKUP] = &Ia::alone_pickup;
+	alone_funct[ALONE_GOTO] = &Ia::alone_goto;
 }
 
 Ia::Ia( Ia const & src )
@@ -26,42 +26,21 @@ Ia::~Ia( void )
 {
 }
 
-int			Ia::alone_init(int vision, int elem_pres)
+void	Ia::think(Client &client)
 {
-	(void)vision;
-	(void)elem_pres;
-	return (0);
+	(*this.*role_funct[role])(client);
 }
-
-// int			Ia::alone_voir(int vision, int elem_pres)
-// {
-// 	return (0);
-// }
-
-// int			Ia::alone_pickup(int vision, int elem_pres)
-// {
-// 	return (0);
-// }
-
-// int			Ia::alone_goto(int vision, int elem_pres)
-// {
-// 	return (0);
-// }
-
 
 void	Ia::role_alone(Client &client)
 {
 	int	i;
 	int	ret;
-	(void)alone_transition_tab;
 	(void)client;
 
 	i = -1;
 	ret = 0;
 	while (++i < MAX_CMD)
-	{
 		ret = (*this.*alone_funct[ret])(0, 0);
-	}
 }
 
 void	Ia::role_mother(Client &client)

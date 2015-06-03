@@ -15,7 +15,7 @@
 #include "Icmd.hpp"
 
 Client::Client(char **av) : team_name(av[1]), args(av) {
-	ia.role = ALONE;
+	busy = true;
 	id = getpid();
 	inventory.init_player_stuff();
 	coord = new Point(0, 0);
@@ -69,6 +69,8 @@ void	Client::process(void) {
 		}
 		tmp++;
 	}
+	if (!list_cmd.size())
+		ia.think(*this); /*     <---------------------     HERE IS THE BLACK BOX*/
 }
 
 void	Client::loop_client(void){

@@ -323,6 +323,7 @@ void	Welcome::parseAnswer(std::string answer){
 		this->_client->map_x = stoi(answer.substr(0, space));
 		this->_client->map_y =  stoi(answer.substr(space + 1, answer.size() - space));
 		std::cout << this->_client->map_x << " " << this->_client->map_y << "fin " << std::endl;
+		_client->busy = false;
 		this->_client->list_cmd.remove(this);
 		if (_client->remaining_slots <= 0)
 			_client->list_cmd.push_back(new Broadcast(*_client, args2string(1, ROLL_CALL)));

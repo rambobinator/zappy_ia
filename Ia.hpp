@@ -26,15 +26,6 @@ enum	e_role
 	ROLE_NBR
 };
 
-enum	e_transition_tab_values
-{
-	VISION, /*GOT SUFFISANT VISION AND NOT TOO OLD*/
-	ELEM_PRESENT, /*SEEKED ELEMENT PRESENT IN THIS BLOC*/
-	GO_TO, /*GO TO THIS STATE IF OK*/
-	BACK_TO, /*ELSE GO HERE*/
-	TRANSITION_NBR
-};
-
 enum	e_alone_states
 {
 	ALONE_INIT,
@@ -48,14 +39,6 @@ class Client;
 
 class Ia
 {
-	const int		alone_transition_tab[ALONE_STATES_NBR][TRANSITION_NBR] = /*PLAYER IS IN ALONE MODE HERE*/
-	{
-		{GOT_VISION, USELESS, ALONE_PICKUP, ALONE_VOIR},/*INIT*/
-		{USELESS, ELEM_HERE, ALONE_PICKUP, ALONE_GOTO},/*VOIR*/
-		{GOT_VISION, USELESS, ALONE_VOIR, ALONE_GOTO},/*PICKUP*/
-		{USELESS, ELEM_HERE, ALONE_PICKUP, ALONE_INIT}/*GOTO*/
-	};
-
 	typedef void (Ia::*Role)(Client &);
 	typedef int (Ia::*Alone)(int, int);
 
@@ -68,18 +51,23 @@ class Ia
 		/*ROLE MANAGEMENT*/
 		int			role;
 		Role		role_funct[ROLE_NBR];
+		void		think(Client &client);
 
-		/**/
+		/*ALONE*/
 		void		role_alone(Client &client);
 		Alone		alone_funct[ALONE_STATES_NBR];
 		int			alone_init(int, int);
-		// int			alone_voir(int*, int*);
-		// int			alone_pickup(int*, int*);
-		// int			alone_goto(int*, int*);
+		int			alone_voir(int, int);
+		int			alone_pickup(int, int);
+		int			alone_goto(int, int);
 
-		/**/
+		/*MOTHER*/
 		void		role_mother(Client &client);
+
+		/*FEEDER*/
 		void		role_feeder(Client &client);
+
+		/*PICKER*/
 		void		role_picker(Client &client);
 
 	private:

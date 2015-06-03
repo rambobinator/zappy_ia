@@ -40,6 +40,7 @@ class Client
 		Client(char **av);
 		~Client();
 		Client &			operator=(const Client & obj);
+		bool				busy;
 		std::list<Icmd*>	list_cmd;
 		Ia					ia;
 		Inventory			inventory;
