@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <vector>
+#include <list>
 #include "Inventory.hpp"
 #include "Point.hpp"
 
@@ -24,6 +25,7 @@ public:
 	void						fill_case(Point p, std::string str);
 	void						print(void);
 	Point						normalizer(Point p);
+	void						path_find(std::string str);
 
 	std::vector<std::vector<Inventory*>>		map;
 	int											map_x;

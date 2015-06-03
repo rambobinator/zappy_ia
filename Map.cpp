@@ -124,3 +124,99 @@ void						Map::print() {
 		j++;
 	}
 }
+
+void						Map::path_find(std::string str) {
+	int					i;
+	int					j;
+	std::list<Point>	li;	
+
+	i = 0;
+	while (i < this->map_x) {
+		j = 0;
+		while (j < this->map_y) {
+			if (this->map[i][j]->getData()[str] > 0)
+				li.push_back({i,j});
+			j++;
+		}
+		i++;
+	}
+}
+
+std::list<Icmd*>			Map::best_path(Point p) {
+	std::list<Icmd*>	ret;
+	int					delta_x;
+	int					delta_y;
+	int					i;
+
+	delta_x = p.x - this->x;
+	delta_y = p.y - this->y;
+	if (this->direction == 0) {
+		if (delta_y > 0) {
+			if (delta_x > 0)
+		}
+	}
+	else if (this->direction == 0) {
+		
+	}
+	else if (this->direction == 0) {
+		
+	}
+	else if (this->direction == 0) {
+		
+	}
+}
+
+std::list<Icmd*>		Map::square_x(Point p) {
+	int					delta_x;
+	int					delta_y;
+	int					i;
+	std::list<Icmd*>	li;
+
+	delta_x = abs(p.x - this->x);
+	delta_y = abs(p.y - this->y);
+	i = 0;
+	while (i < delta_x) {
+		li.push_back(new Avance());
+		i++;
+	}
+}
+
+std::list<Icmd*>		Map::square_y(Point p) {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

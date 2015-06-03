@@ -29,7 +29,7 @@ std::ostream & 		operator<<(std::ostream &o, Inventory const &rhs){
 	return o;
 }
 
-void			Inventory::init_player_stuff(void){
+void						Inventory::init_player_stuff(void){
 	_data["nourriture"] = 10;
 }
 
