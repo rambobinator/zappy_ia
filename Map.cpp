@@ -38,7 +38,7 @@ Map::~Map() {}
 void						Map::fill_case(Point p, std::string str) {
 	Point	a;
 
-	std::cout << "p: " << p.x << "," << p.y << std::endl;
+	// std::cout << "p: " << p.x << "," << p.y << std::endl;
 	if (this->direction == 0)
 		a = this->normalizer({this->x + p.x, this->y + p.y});
 	else if (this->direction == 1)
@@ -59,7 +59,7 @@ Point		Map::normalizer(Point p) {
 		p.y = p.y % this->map_y;
 	else if (p.y < 0)
 		p.y = this->map_y + p.y;
-	std::cout << "p_n: " << p.x << "," << p.y << "    "<< this->direction << std::endl;
+	// std::cout << "p_n: " << p.x << "," << p.y << "    "<< this->direction << std::endl;
 	return (p);
 
 }
@@ -151,7 +151,7 @@ std::list<Icmd*>			Map::path_find(std::string str) {
 		j = 0;
 		while (j < this->map_y) {
 			if (this->map[i][j]->getData()[str] > 0) {
-				std::cout << "phiras: " << i << "," << j << std::endl;
+				// std::cout << "phiras: " << i << "," << j << std::endl;
 				li.push_back({i,j});
 			}
 			j++;
@@ -223,46 +223,46 @@ std::list<Icmd*>			Map::best_path(Point p) {
 	}
 
 	rotate = min[0] - this->direction;
-	std::cout << "Rotate " << rotate << std::endl;
+	// std::cout << "Rotate " << rotate << std::endl;
 	if (rotate == 3 || rotate == -1) {
-		std::cout << "Gauche" << std::endl;
+		// std::cout << "Gauche" << std::endl;
 		ret.push_back(new Gauche(client));
 		this->add_direction(-1);
 	}
 	else if (rotate == 1 || rotate == -3) {
-		std::cout << "Droite" << std::endl;
+		// std::cout << "Droite" << std::endl;
 		ret.push_back(new Droite(client));
 		this->add_direction(1);
 	}
 
 	if (min[0] % 2 == 0) {
-		std::cout << "Avance "<< delta_y << std::endl;
+		// std::cout << "Avance "<< delta_y << std::endl;
 		ret.splice(ret.end(), this->gen_avance(delta_y));
 	}
 	else {
-		std::cout << "Avance "<< delta_x << std::endl;
+		// std::cout << "Avance "<< delta_x << std::endl;
 		ret.splice(ret.end(), this->gen_avance(delta_x));
 	}
 
 
 	rotate = min[1] - this->direction;
 	if (rotate == 3 || rotate == -1) {
-		std::cout << "Gauche" << std::endl;
+		// std::cout << "Gauche" << std::endl;
 		ret.push_back(new Gauche(client));
 		this->add_direction(-1);
 	}
 	else if (rotate == 1 || rotate == -3) {
-		std::cout << "Droite" << std::endl;
+		// std::cout << "Droite" << std::endl;
 		ret.push_back(new Droite(client));
 		this->add_direction(1);
 	}
 
 	if (min[1] % 2 == 0) {
-		std::cout << "Avance "<< delta_y << std::endl;
+		// std::cout << "Avance "<< delta_y << std::endl;
 		ret.splice(ret.end(), this->gen_avance(delta_y));
 	}
 	else {
-		std::cout << "Avance "<< delta_x << std::endl;
+		// std::cout << "Avance "<< delta_x << std::endl;
 		ret.splice(ret.end(), this->gen_avance(delta_x));
 	}
 	this->direction = dir;
