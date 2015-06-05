@@ -220,3 +220,4 @@ void		Client::count_team(Message *mes){
 	*/
 	std::cout << "WE ARE " << others.size() << " CURRENTLY IN GAME " << std::endl; /*DEBUG BUT WORKING :)*/
 }
+

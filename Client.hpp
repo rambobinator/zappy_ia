@@ -30,6 +30,7 @@
 #include "Ia.hpp"
 
 class Icmd;
+class Map;
 
 class Client
 {
@@ -83,6 +84,7 @@ class Client
 		void				cmd_answer(std::string cmd);
 		std::map<std::string, void (Client::*)(std::string)>		cmd_tab;
 		/*___________*/
+
 
 	private:
 };

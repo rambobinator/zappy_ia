@@ -10,23 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MAP_HPP
+#define MAP_HPP
+
 #include <vector>
 #include <list>
+#include "Icmd.hpp"
 #include "Inventory.hpp"
 #include "Point.hpp"
+#include "Client.hpp"
+
+class Client;
+class Icmd;
 
 class Map {
 public:
-	Map(int x, int y);
+	Map(int x, int y, Client *client);
 	~Map(void);
 	void 						fill_map(std::string str);
 	std::vector<std::string>	parse_str(std::string str);
 	Point						get_coord(int tile);
 	void						fill_case(Point p, std::string str);
 	void						print(void);
+	void						add_direction(int i);
+
 	Point						normalizer(Point p);
 	void						path_find(std::string str);
+	std::list<Icmd*>			best_path(Point p);
+	std::list<Icmd*>			gen_avance(int n);
 
+	Client										*client;
 	std::vector<std::vector<Inventory*>>		map;
 	int											map_x;
 	int											map_y;
@@ -34,3 +47,6 @@ public:
 	int											y;
 	int											direction;
 };
+
+
+#endif

@@ -24,9 +24,9 @@ $(NAME): $(SRC:.c=.o)
 	g++ -c $^ -o $@ -Wall -Wextra -Werror -g -std=c++11
 
 clean:
-	rm -rf $(SRC:.c=.o) $(SRC2:.c=.o)
+	rm -rf $(SRC:.cpp=.o)
 
 fclean: clean
-	rm -rf $(NAME) $(NAME2)
+	rm -rf $(NAME)
 
 re: fclean all

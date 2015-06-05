@@ -12,7 +12,7 @@
 
 #include "Map.hpp"
 
-Map::Map(int x, int y) : map(std::vector<std::vector<Inventory*>>(x,
+Map::Map(int x, int y, Client *client) : client(client), map(std::vector<std::vector<Inventory*>>(x,
 	std::vector<Inventory*>(y, NULL))) {
 	int						i;
 	int						j;
@@ -125,6 +125,16 @@ void						Map::print() {
 	}
 }
 
+
+void						Map::add_direction(int i) {
+	this->direction += i;
+	if (this->direction < 0)
+		this->direction += 4;
+	else if (this->direction > 4)
+		this->direction = this->direction % 4;
+}
+
+
 void						Map::path_find(std::string str) {
 	int					i;
 	int					j;
@@ -139,84 +149,107 @@ void						Map::path_find(std::string str) {
 			j++;
 		}
 		i++;
-	}
+	}	
 }
 
 std::list<Icmd*>			Map::best_path(Point p) {
 	std::list<Icmd*>	ret;
 	int					delta_x;
 	int					delta_y;
-	int					i;
+	int					mov_1;
+	int					mov_2;
+	int					rotate;
+	std::vector<int>	min;
+	int					dir = this->direction;
 
 	delta_x = p.x - this->x;
 	delta_y = p.y - this->y;
-	if (this->direction == 0) {
-		if (delta_y > 0) {
-			if (delta_x > 0)
-		}
+	
+	if (delta_x <= 0)
+		mov_1 = 3;
+	else
+		mov_1 = 1;
+	if (delta_y <= 0)
+		mov_2 = 0;
+	else
+		mov_2 = 2;
+
+	if (abs(this->direction - mov_1) < abs(this->direction - mov_2)) {
+		min.push_back(mov_1);
+		min.push_back(mov_2);
 	}
-	else if (this->direction == 0) {
-		
+	else {
+		min.push_back(mov_2);
+		min.push_back(mov_1);	
 	}
-	else if (this->direction == 0) {
-		
+
+	rotate = min[0] - this->direction;
+	if (rotate == 3 || rotate == -1) {
+		std::cout << "Gauche" << std::endl;
+		ret.push_back(new Gauche(client));
+		this->add_direction(-1);
 	}
-	else if (this->direction == 0) {
-		
+	else if (rotate == 1 || rotate == -3) {
+		std::cout << "Droite" << std::endl;
+		ret.push_back(new Droite(client));
+		this->add_direction(1);
 	}
+
+	if (min[0] % 2 == 0) {
+		std::cout << "Avance "<< delta_y << std::endl;
+		ret.splice(ret.end(), this->gen_avance(delta_y));
+	}
+	else {
+		std::cout << "Avance "<< delta_x << std::endl;
+		ret.splice(ret.end(), this->gen_avance(delta_x));
+	}
+
+
+	rotate = min[1] - this->direction;
+	if (rotate == 3 || rotate == -1) {
+		std::cout << "Gauche" << std::endl;
+		ret.push_back(new Gauche(client));
+		this->add_direction(-1);
+	}
+	else if (rotate == 1 || rotate == -3) {
+		std::cout << "Droite" << std::endl;
+		ret.push_back(new Droite(client));
+		this->add_direction(1);
+	}
+
+	if (min[1] % 2 == 0) {
+		std::cout << "Avance "<< delta_y << std::endl;
+		ret.splice(ret.end(), this->gen_avance(delta_y));
+	}
+	else {
+		std::cout << "Avance "<< delta_x << std::endl;
+		ret.splice(ret.end(), this->gen_avance(delta_x));
+	}
+	this->direction = dir;
+	return (ret);
 }
 
-std::list<Icmd*>		Map::square_x(Point p) {
-	int					delta_x;
-	int					delta_y;
-	int					i;
+std::list<Icmd*>		Map::gen_avance(int n) {
 	std::list<Icmd*>	li;
+	int					i;
 
-	delta_x = abs(p.x - this->x);
-	delta_y = abs(p.y - this->y);
 	i = 0;
-	while (i < delta_x) {
-		li.push_back(new Avance());
+	while (i < n) {
+		li.push_back(new Avance(client));
 		i++;
 	}
+	return (li);
 }
 
-std::list<Icmd*>		Map::square_y(Point p) {
+// int		main(int ac, char **av) {
+	
+// 	if (ac == 4) {
+// 		std::cout << "lala" << std::endl;
+// 		Client c(av);
+// 		Map a(10, 10, &c);
 
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 		a.fill_map("{nourriture, joueur sibur, phiras phiras, }");
+// 		a.best_path({0, 3});
+// 	}
+// 	return (0);
+// }

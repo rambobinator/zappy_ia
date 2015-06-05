@@ -1,11 +1,11 @@
 #include "Icmd.hpp"
 
 /*______________________________AVANCE*/
-Avance::Avance(Client &new_client){
+Avance::Avance(Client *new_client){
 	_done = false;
 	_delay = AVANCE_DELAY;
 	_cmd_name = AVANCE_NAME;
-	_client = &new_client;
+	_client = new_client;
 };
 
 Avance::~Avance(){};
@@ -26,10 +26,11 @@ void	Avance::parseAnswer(std::string answer){
 /*____________________________________*/
 
 /*______________________________DROITE*/
-Droite::Droite(){
+Droite::Droite(Client *new_client) {
 	_done = false;
 	_delay = DROITE_DELAY;
 	_cmd_name = DROITE_NAME;
+	_client = new_client;
 };
 
 Droite::~Droite(){};
@@ -41,6 +42,7 @@ std::string	Droite::getCmd(){
 
 void	Droite::execute(){
 	_done = true;
+	_client->map->add_direction(1);
 	std::cout << getCmd();/*ADD IN BUF INSTEAD*/
 };
 
@@ -51,10 +53,11 @@ void	Droite::parseAnswer(std::string answer){
 /*____________________________________*/
 
 /*______________________________GAUCHE*/
-Gauche::Gauche(){
+Gauche::Gauche(Client *new_client) {
 	_done = false;
 	_delay = GAUCHE_DELAY;
 	_cmd_name = GAUCHE_NAME;
+	_client = new_client;
 };
 
 Gauche::~Gauche(){};
@@ -66,6 +69,7 @@ std::string	Gauche::getCmd(){
 
 void	Gauche::execute(){
 	_done = true;
+	_client->map->add_direction(-1);
 	std::cout << getCmd();/*ADD IN BUF INSTEAD*/
 };
 

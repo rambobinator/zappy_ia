@@ -38,10 +38,11 @@
 #define CONNECT_NBR_NAME "connect_nbr"
 
 #include <iostream>
-#include "client.hpp"
+#include "Client.hpp"
 #include "Messages.hpp"
 
 std::string			args2string(int data, ...);
+class Client;
 
 class Icmd
 {
@@ -62,7 +63,7 @@ class Icmd
 class Avance : public Icmd
 {
 	public:
-		Avance(Client &new_client);
+		Avance(Client *new_client);
 		~Avance();
 		std::string	getCmd();
 		void		execute();
@@ -72,7 +73,7 @@ class Avance : public Icmd
 class Droite : public Icmd
 {
 	public:
-		Droite();
+		Droite(Client *new_client);
 		~Droite();
 		std::string	getCmd();
 		void		execute();
@@ -82,7 +83,7 @@ class Droite : public Icmd
 class Gauche : public Icmd
 {
 	public:
-		Gauche();
+		Gauche(Client *new_client);
 		~Gauche();
 		std::string	getCmd();
 		void		execute();
