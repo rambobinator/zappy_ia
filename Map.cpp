@@ -38,6 +38,7 @@ Map::~Map() {}
 void						Map::fill_case(Point p, std::string str) {
 	Point	a;
 
+	std::cout << "p: " << p.x << "," << p.y << std::endl;
 	if (this->direction == 0)
 		a = this->normalizer({this->x + p.x, this->y + p.y});
 	else if (this->direction == 1)
@@ -58,6 +59,7 @@ Point		Map::normalizer(Point p) {
 		p.y = p.y % this->map_y;
 	else if (p.y < 0)
 		p.y = this->map_y + p.y;
+	std::cout << "p_n: " << p.x << "," << p.y << "    "<< this->direction << std::endl;
 	return (p);
 
 }
@@ -105,7 +107,7 @@ void						Map::fill_map(std::string str) {
 			nb++;
 			j++;
 		}
-		i++;
+		i--;
 		level++;
 	}
 }
@@ -148,8 +150,10 @@ std::list<Icmd*>			Map::path_find(std::string str) {
 	while (i < this->map_x) {
 		j = 0;
 		while (j < this->map_y) {
-			if (this->map[i][j]->getData()[str] > 0)
+			if (this->map[i][j]->getData()[str] > 0) {
+				std::cout << "phiras: " << i << "," << j << std::endl;
 				li.push_back({i,j});
+			}
 			j++;
 		}
 		i++;
@@ -285,9 +289,9 @@ int		main(int ac, char **av) {
 		Client c(av);
 		Map a(10, 10, &c);
 
-		a.direction = 3;
-		a.fill_map("{nourriture, joueur sibur, phiras phiras, }");
-		a.best_path({6, 2});
+		// a.direction = 0;
+		a.fill_map("{nourriture, joueur sibur, , , , , , , , , , , , , , ,phiras phiras, }");
+		a.path_find("phiras");
 	}
 	return (0);
 }
