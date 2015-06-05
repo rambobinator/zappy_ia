@@ -165,6 +165,19 @@ std::list<Icmd*>			Map::best_path(Point p) {
 	delta_x = p.x - this->x;
 	delta_y = p.y - this->y;
 	
+	if (abs(delta_x) > map_x / 2) {
+		if (delta_x > 0)
+			delta_x = delta_x - map_x;
+		else
+			delta_x = map_x - delta_x;
+	}
+	if (abs(delta_y) > map_y / 2) {
+		if (delta_y > 0)
+			delta_y = delta_y - map_y;
+		else
+			delta_y = map_y - delta_y;
+	}
+
 	if (delta_x <= 0)
 		mov_1 = 3;
 	else
@@ -174,7 +187,7 @@ std::list<Icmd*>			Map::best_path(Point p) {
 	else
 		mov_2 = 2;
 
-	if (abs(this->direction - mov_1) < abs(this->direction - mov_2)) {
+	if (abs(this->direction - mov_1) % 3 < abs(this->direction - mov_2) % 3) {
 		min.push_back(mov_1);
 		min.push_back(mov_2);
 	}
@@ -184,6 +197,7 @@ std::list<Icmd*>			Map::best_path(Point p) {
 	}
 
 	rotate = min[0] - this->direction;
+	std::cout << "Rotate " << rotate << std::endl;
 	if (rotate == 3 || rotate == -1) {
 		std::cout << "Gauche" << std::endl;
 		ret.push_back(new Gauche(client));
@@ -241,15 +255,15 @@ std::list<Icmd*>		Map::gen_avance(int n) {
 	return (li);
 }
 
-// int		main(int ac, char **av) {
+int		main(int ac, char **av) {
 	
-// 	if (ac == 4) {
-// 		std::cout << "lala" << std::endl;
-// 		Client c(av);
-// 		Map a(10, 10, &c);
+	if (ac == 4) {
+		std::cout << "lala" << std::endl;
+		Client c(av);
+		Map a(10, 10, &c);
 
-// 		a.fill_map("{nourriture, joueur sibur, phiras phiras, }");
-// 		a.best_path({0, 3});
-// 	}
-// 	return (0);
-// }
+		a.fill_map("{nourriture, joueur sibur, phiras phiras, }");
+		a.best_path({8, 0});
+	}
+	return (0);
+}
