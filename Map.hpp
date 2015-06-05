@@ -35,7 +35,7 @@ public:
 	void						add_direction(int i);
 
 	Point						normalizer(Point p);
-	void						path_find(std::string str);
+	std::list<Icmd*>			path_find(std::string str);
 	std::list<Icmd*>			best_path(Point p);
 	std::list<Icmd*>			gen_avance(int n);
 

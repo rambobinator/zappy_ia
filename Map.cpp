@@ -134,11 +134,15 @@ void						Map::add_direction(int i) {
 		this->direction = this->direction % 4;
 }
 
-
-void						Map::path_find(std::string str) {
-	int					i;
-	int					j;
-	std::list<Point>	li;	
+std::list<Icmd*>			Map::path_find(std::string str) {
+	int								i;
+	int								j;
+	std::list<Point>				li;
+	std::vector<std::list<Icmd*>>	vec;
+	std::list<Point>::iterator		it;
+	std::list<Icmd*>				nu;
+	int								min;
+	int								i_min;
 
 	i = 0;
 	while (i < this->map_x) {
@@ -149,7 +153,25 @@ void						Map::path_find(std::string str) {
 			j++;
 		}
 		i++;
-	}	
+	}
+	it = li.begin();
+	while (it != li.end()) {
+		vec.push_back(this->best_path(*it));
+		it++;
+	}
+	if (vec.empty())
+		return (nu);
+	i = 0;
+	j = vec.size();
+	min = 1000;
+	while (i < j) {
+		if (vec[i].size() < min) {
+			min = vec[i].size();
+			i_min = i;
+		}
+		i++;
+	}
+	return (vec[i_min]);
 }
 
 std::list<Icmd*>			Map::best_path(Point p) {
@@ -256,16 +278,16 @@ std::list<Icmd*>		Map::gen_avance(int n) {
 	return (li);
 }
 
-// int		main(int ac, char **av) {
+int		main(int ac, char **av) {
 	
-// 	if (ac == 4) {
-// 		std::cout << "lala" << std::endl;
-// 		Client c(av);
-// 		Map a(10, 10, &c);
+	if (ac == 4) {
+		std::cout << "lala" << std::endl;
+		Client c(av);
+		Map a(10, 10, &c);
 
-// 		a.direction = 3;
-// 		a.fill_map("{nourriture, joueur sibur, phiras phiras, }");
-// 		a.best_path({6, 2});
-// 	}
-// 	return (0);
-// }
+		a.direction = 3;
+		a.fill_map("{nourriture, joueur sibur, phiras phiras, }");
+		a.best_path({6, 2});
+	}
+	return (0);
+}
