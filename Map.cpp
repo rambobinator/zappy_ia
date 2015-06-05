@@ -282,16 +282,16 @@ std::list<Icmd*>		Map::gen_avance(int n) {
 	return (li);
 }
 
-int		main(int ac, char **av) {
+// int		main(int ac, char **av) {
 	
-	if (ac == 4) {
-		std::cout << "lala" << std::endl;
-		Client c(av);
-		Map a(10, 10, &c);
+// 	if (ac == 4) {
+// 		std::cout << "lala" << std::endl;
+// 		Client c(av);
+// 		Map a(10, 10, &c);
 
-		// a.direction = 0;
-		a.fill_map("{nourriture, joueur sibur, , , , , , , , , , , , , , ,phiras phiras, }");
-		a.path_find("phiras");
-	}
-	return (0);
-}
+// 		// a.direction = 0;
+// 		a.fill_map("{nourriture, joueur sibur, , , , , , , , , , , , , , ,phiras phiras, }");
+// 		a.path_find("phiras");
+// 	}
+// 	return (0);
+// }
