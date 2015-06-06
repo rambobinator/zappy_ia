@@ -69,7 +69,7 @@ void	Client::process(void) {
 		}
 		tmp++;
 	}
-	if (!list_cmd.size())
+	if (!busy )//&& !list_cmd.size())
 		ia.think(*this); /*     <---------------------     HERE IS THE BLACK BOX*/
 }
 
@@ -165,8 +165,7 @@ void	Client::read_messages(void){ /*STACK THE RIGHT CMD DEPENDING ON THE ORDERS*
 					(*this.*msgs_callback[callback_code])(*it); /*WTF*/
 			}
 			(*it)->read = true;
-			std::cout << *msgs;/*RM*/
-
+			// std::cout << *msgs;/*RM*/
 		}
 	}
 }
@@ -181,6 +180,7 @@ void	Client::cmd_broadcast(std::string cmd) {/*CLIENT RECEIVE <message>*/
 
 void	Client::cmd_die(std::string cmd) {/*CLIENT RECEIVE <mort>*/
 	(void)cmd;
+	std::cout << "YOU DIED !" << std::endl;
 	quit();
 }
 
@@ -206,6 +206,7 @@ void	Client::cmd_answer(std::string cmd) {/*CLIENT RECEIVE AN OTHER CMD*/
 		}
 	}
 }
+
 /*CALLBACK IMPLEMENTATIONS*/
 
 void		Client::send_present(Message *mes){
@@ -213,11 +214,16 @@ void		Client::send_present(Message *mes){
 	list_cmd.push_back(new Broadcast(*this, args2string(1, PRESENT)));
 }
 
-void		Client::count_team(Message *mes){
-	others.push_back(new Coop(mes->id, mes->dir, mes->team, mes->inventory));
-	/*
-		HERE SORT OTHERS LIST BY ID AND THEN UNIQUE !!!!
-	*/
-	std::cout << "WE ARE " << others.size() << " CURRENTLY IN GAME " << std::endl; /*DEBUG BUT WORKING :)*/
-}
+bool		sort_by_pid(Coop *a, Coop *b){return (a->id < b->id);} /*COUNT UTILS*/
+bool		unique_by_pid(Coop *a, Coop *b){return (a->id == b->id);}/*COUNT UTILS*/
 
+void		Client::count_team(Message *mes){
+	if (mes->team != team_name)
+		return ;
+	others.push_back(new Coop(mes->id, mes->dir, mes->team, mes->inventory));
+	others.sort(sort_by_pid);
+	others.unique(unique_by_pid);
+	std::cout << "WE ARE " << others.size() << " CURRENTLY IN GAME " << std::endl; /*DEBUG BUT WORKING :)*/
+	// for (std::list<Coop *>::iterator it = others.begin(); it != others.end(); it++)
+	// 	std::cout << "MESS by " << *(*it) << std::endl;
+}

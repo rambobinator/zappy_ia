@@ -169,7 +169,7 @@ std::list<Icmd*>			Map::path_find(std::string str) {
 	j = vec.size();
 	min = 1000;
 	while (i < j) {
-		if (vec[i].size() < min) {
+		if ((int)vec[i].size() < min) {
 			min = vec[i].size();
 			i_min = i;
 		}

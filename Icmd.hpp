@@ -93,7 +93,7 @@ class Gauche : public Icmd
 class Voir : public Icmd
 {
 	public:
-		Voir();
+		Voir(Client *new_client);
 		~Voir();
 		std::string	getCmd();
 		void		execute();
@@ -114,10 +114,14 @@ class Prend : public Icmd
 {
 	public:
 		Prend();
+		Prend(Client *new_client, std::string args);
 		~Prend();
 		std::string	getCmd();
 		void		execute();
 		void		parseAnswer(std::string);
+
+	private:
+		std::string	_args;
 };
 
 class Pose : public Icmd

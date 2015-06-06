@@ -24,7 +24,6 @@ Coop & Coop::operator=( Coop const & rhs )
 
 std::ostream & 		operator<<(std::ostream &o, Coop const &rhs)
 {
-	(void)rhs;
-	o << "";
+	o << rhs.id << " -> " << rhs.team;
 	return o;
 }

@@ -18,34 +18,36 @@ const int		alone_transition_tab[ALONE_STATES_NBR][TRANSITION_NBR] = /*PLAYER IS 
 	{USELESS, ELEM_HERE, ALONE_PICKUP, ALONE_INIT}/*GOTO*/
 };
 
-int			Ia::alone_init(int vision, int elem_pres)
+int			Ia::alone_init(Client &client)
 {
-	(void)vision;
-	(void)elem_pres;
 	std::cout << "INIT" << std::endl;
-	return ((vision) ? alone_transition_tab[ALONE_INIT][GO_TO] : alone_transition_tab[ALONE_INIT][BACK_TO]);
+	if (client.ia.last_vision == -1 || client.ia.wanted_elem == -1)
+		return (ALONE_VOIR);
+	return ((client.ia.last_vision <= alone_transition_tab[ALONE_INIT][VISION]) ?
+		alone_transition_tab[ALONE_INIT][GO_TO] : alone_transition_tab[ALONE_INIT][BACK_TO]);
 }
 
-int			Ia::alone_voir(int vision, int elem_pres)
+int			Ia::alone_voir(Client &client)
 {
-	(void)vision;
-	(void)elem_pres;
 	std::cout << "VOIR" << std::endl;
-	return ((vision) ? alone_transition_tab[ALONE_VOIR][GO_TO] : alone_transition_tab[ALONE_VOIR][BACK_TO]);
+	client.list_cmd.push_back(new Voir(&client));
+	return ((client.ia.wanted_elem <= alone_transition_tab[ALONE_VOIR][ELEM_PRESENT]) ?
+		alone_transition_tab[ALONE_VOIR][GO_TO] : alone_transition_tab[ALONE_VOIR][BACK_TO]);
 }
 
-int			Ia::alone_pickup(int vision, int elem_pres)
+int			Ia::alone_pickup(Client &client)
 {
-	(void)vision;
-	(void)elem_pres;
 	std::cout << "PICKUP" << std::endl;
-	return ((vision) ? alone_transition_tab[ALONE_PICKUP][GO_TO] : alone_transition_tab[ALONE_PICKUP][BACK_TO]);
+	client.list_cmd.push_back(new Prend(&client, "nourriture"));
+	return (ALONE_GOTO);
+	//return ((client.ia.last_vision <= alone_transition_tab[ALONE_PICKUP][VISION]) ?
+	//	alone_transition_tab[ALONE_PICKUP][GO_TO] : alone_transition_tab[ALONE_PICKUP][BACK_TO]);
 }
 
-int			Ia::alone_goto(int vision, int elem_pres)
+int			Ia::alone_goto(Client &client)
 {
-	(void)vision;
-	(void)elem_pres;
 	std::cout << "GOTO" << std::endl;
-	return ((vision) ? alone_transition_tab[ALONE_PICKUP][GO_TO] : alone_transition_tab[ALONE_PICKUP][BACK_TO]);
+	client.list_cmd.push_back(new Avance(&client));
+	return ((client.ia.wanted_elem <= alone_transition_tab[ALONE_GOTO][ELEM_PRESENT]) ?
+		alone_transition_tab[ALONE_PICKUP][GO_TO] : alone_transition_tab[ALONE_PICKUP][BACK_TO]);
 }

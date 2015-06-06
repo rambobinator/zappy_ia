@@ -4,6 +4,9 @@
 Ia::Ia( void )
 {
 	role = ALONE;
+	last_vision = -1;
+	wanted_elem = -1;
+
 	/*ROLES PTRS*/
 	role_funct[ALONE] = &Ia::role_alone;
 	role_funct[MOTHER] = &Ia::role_mother;
@@ -35,12 +38,11 @@ void	Ia::role_alone(Client &client)
 {
 	int	i;
 	int	ret;
-	(void)client;
 
 	i = -1;
 	ret = 0;
 	while (++i < MAX_CMD)
-		ret = (*this.*alone_funct[ret])(0, 0);
+		ret = (*this.*alone_funct[ret])(client);
 }
 
 void	Ia::role_mother(Client &client)
