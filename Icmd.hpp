@@ -64,7 +64,7 @@ class Avance : public Icmd
 {
 	public:
 		Avance(Client *new_client);
-		~Avance();
+		virtual ~Avance();
 		std::string	getCmd();
 		void		execute();
 		void		parseAnswer(std::string);
@@ -74,7 +74,7 @@ class Droite : public Icmd
 {
 	public:
 		Droite(Client *new_client);
-		~Droite();
+		virtual ~Droite();
 		std::string	getCmd();
 		void		execute();
 		void		parseAnswer(std::string);
@@ -84,7 +84,7 @@ class Gauche : public Icmd
 {
 	public:
 		Gauche(Client *new_client);
-		~Gauche();
+		virtual ~Gauche();
 		std::string	getCmd();
 		void		execute();
 		void		parseAnswer(std::string);
@@ -94,7 +94,7 @@ class Voir : public Icmd
 {
 	public:
 		Voir(Client *new_client);
-		~Voir();
+		virtual ~Voir();
 		std::string	getCmd();
 		void		execute();
 		void		parseAnswer(std::string);
@@ -104,7 +104,7 @@ class Inventaire : public Icmd
 {
 	public:
 		Inventaire();
-		~Inventaire();
+		virtual ~Inventaire();
 		std::string	getCmd();
 		void		execute();
 		void		parseAnswer(std::string);
@@ -115,7 +115,7 @@ class Prend : public Icmd
 	public:
 		Prend();
 		Prend(Client *new_client, std::string args);
-		~Prend();
+		virtual ~Prend();
 		std::string	getCmd();
 		void		execute();
 		void		parseAnswer(std::string);
@@ -127,18 +127,21 @@ class Prend : public Icmd
 class Pose : public Icmd
 {
 	public:
-		Pose();
-		~Pose();
+		Pose(Client *new_client, std::string args);
+		virtual ~Pose();
 		std::string	getCmd();
 		void		execute();
 		void		parseAnswer(std::string);
+
+	private:
+		std::string	_args;
 };
 
 class Expulse : public Icmd
 {
 	public:
 		Expulse();
-		~Expulse();
+		virtual ~Expulse();
 		std::string	getCmd();
 		void		execute();
 		void		parseAnswer(std::string);
@@ -149,7 +152,7 @@ class Broadcast : public Icmd
 	public:
 		Broadcast(Client &new_client);
 		Broadcast(Client &new_client, std::string args);
-		~Broadcast();
+		virtual ~Broadcast();
 		std::string	getCmd();
 		void		execute();
 		void		parseAnswer(std::string);
@@ -162,7 +165,7 @@ class Incantation : public Icmd
 {
 	public:
 		Incantation();
-		~Incantation();
+		virtual ~Incantation();
 		std::string	getCmd();
 		void		execute();
 		void		parseAnswer(std::string);
@@ -182,7 +185,7 @@ class Connect_nbr : public Icmd
 {
 	public:
 		Connect_nbr();
-		~Connect_nbr();
+		virtual ~Connect_nbr();
 		std::string	getCmd();
 		void		execute();
 		void		parseAnswer(std::string);
@@ -192,7 +195,7 @@ class Welcome : public Icmd
 {
 	public:
 		Welcome(Client &new_client);
-		~Welcome();
+		virtual ~Welcome();
 		std::string	getCmd();
 		void		execute();
 		void		parseAnswer(std::string);

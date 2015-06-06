@@ -51,7 +51,10 @@ int		Client::connect(std::string ip, std::string port) {
 	{
 		sock = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
 		if ((::connect(sock, res->ai_addr, res->ai_addrlen)) != -1)
+		{
+			freeaddrinfo(res);
 			return (sock);
+		}
 		close(sock);
 		res = res->ai_next;
 	}
@@ -69,7 +72,7 @@ void	Client::process(void) {
 		}
 		tmp++;
 	}
-	if (!busy )//&& !list_cmd.size())
+	if (!busy && list_cmd.size() <= 10)
 		ia.think(*this); /*     <---------------------     HERE IS THE BLACK BOX*/
 }
 
@@ -172,7 +175,6 @@ void	Client::read_messages(void){ /*STACK THE RIGHT CMD DEPENDING ON THE ORDERS*
 
 void	Client::cmd_broadcast(std::string cmd) {/*CLIENT RECEIVE <message>*/
 	msgs->receive(cmd);
-
 	/*HERE SHOULD DEFINE IF THE ACTUAL GOAL ISN'T BLOCKING*/
 	/*if ...*/
 	read_messages();

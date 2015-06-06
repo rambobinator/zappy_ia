@@ -21,7 +21,9 @@ void	Avance::execute(){
 };
 
 void	Avance::parseAnswer(std::string answer){
-	(void)answer;
+	std::cout << _cmd_name << ": " << answer << std::endl;
+	this->_client->list_cmd.remove(this);
+	delete(this);
 }
 /*____________________________________*/
 
@@ -47,7 +49,9 @@ void	Droite::execute(){
 };
 
 void	Droite::parseAnswer(std::string answer){
-	(void)answer;
+	std::cout << _cmd_name << ": " << answer << std::endl;
+	this->_client->list_cmd.remove(this);
+	delete(this);
 }
 
 /*____________________________________*/
@@ -74,7 +78,9 @@ void	Gauche::execute(){
 };
 
 void	Gauche::parseAnswer(std::string answer){
-	(void)answer;
+	std::cout << _cmd_name << ": " << answer << std::endl;
+	this->_client->list_cmd.remove(this);
+	delete(this);
 }
 /*____________________________________*/
 /*______________________________VOIR*/
@@ -95,13 +101,13 @@ std::string	Voir::getCmd(){
 void	Voir::execute(){
 	_done = true;
 	_client->buf_write.add(this->getCmd());
-	_client->busy = true;
 };
 
 void	Voir::parseAnswer(std::string answer){
-	(void)answer;
-	std::cout << answer << std::endl;
+	std::cout << _cmd_name << ": " << answer << std::endl;
 	_client->ia.last_vision = 0;
+	this->_client->list_cmd.remove(this);
+	delete(this);
 }
 /*____________________________________*/
 /*____________________________INVENTAIRE*/
@@ -124,7 +130,9 @@ void	Inventaire::execute(){
 };
 
 void	Inventaire::parseAnswer(std::string answer){
-	(void)answer;
+	std::cout << _cmd_name << ": " << answer << std::endl;
+	this->_client->list_cmd.remove(this);
+	delete(this);
 }
 /*____________________________________*/
 /*______________________________PREND*/
@@ -152,20 +160,24 @@ void	Prend::execute(){
 };
 
 void	Prend::parseAnswer(std::string answer){
-	(void)answer;
+	std::cout << _cmd_name << ": " << answer << std::endl;
+	this->_client->list_cmd.remove(this);
+	delete(this);
 }
 /*____________________________________*/
 /*______________________________POSE*/
-Pose::Pose(){
+Pose::Pose(Client *new_client, std::string args){
 	_done = false;
 	_delay = POSE_DELAY;
 	_cmd_name = POSE_NAME;
+	_client = new_client;
+	_args = args;
 };
 
 Pose::~Pose(){};
 
 std::string	Pose::getCmd(){
-	_cmd_final = _cmd_name + "\n";
+	_cmd_final = _cmd_name + " " + _args + "\n";
 	return (_cmd_final);
 }
 
@@ -175,7 +187,9 @@ void	Pose::execute(){
 };
 
 void	Pose::parseAnswer(std::string answer){
-	(void)answer;
+	std::cout << _cmd_name << ": " << answer << std::endl;
+	this->_client->list_cmd.remove(this);
+	delete(this);
 }
 /*____________________________________*/
 /*______________________________EXPULSE*/
@@ -198,7 +212,9 @@ void	Expulse::execute(){
 };
 
 void	Expulse::parseAnswer(std::string answer){
-	(void)answer;
+	std::cout << _cmd_name << ": " << answer << std::endl;
+	this->_client->list_cmd.remove(this);
+	delete(this);
 }
 /*____________________________________*/
 /*______________________________BROADCAST*/
@@ -230,7 +246,9 @@ void	Broadcast::execute(){
 };
 
 void	Broadcast::parseAnswer(std::string answer){
-	(void)answer;
+	std::cout << _cmd_name << ": " << answer << std::endl;
+	this->_client->list_cmd.remove(this);
+	delete(this);
 }
 /*____________________________________*/
 /*_____________________________INCANTATION*/
@@ -253,7 +271,8 @@ void	Incantation::execute(){
 };
 
 void	Incantation::parseAnswer(std::string answer){
-	(void)answer;
+	std::cout << _cmd_name << ": " << answer << std::endl;
+	delete(this);
 }
 /*____________________________________*/
 /*_____________________________FORK*/
@@ -276,7 +295,8 @@ void	Fork::execute(){
 };
 
 void	Fork::parseAnswer(std::string answer){
-	(void)answer;
+	std::cout << _cmd_name << ": " << answer << std::endl;
+	delete(this);
 }
 /*____________________________________*/
 /*___________________________CONNECT_NBR*/
@@ -299,7 +319,9 @@ void	Connect_nbr::execute(){
 };
 
 void	Connect_nbr::parseAnswer(std::string answer){
-	(void)answer;
+	std::cout << _cmd_name << ": " << answer << std::endl;
+	this->_client->list_cmd.remove(this);
+	delete(this);
 }
 /*____________________________________*/
 /*___________________________CONNECT_NBR*/

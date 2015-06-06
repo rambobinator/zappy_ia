@@ -48,6 +48,7 @@ int			Ia::alone_goto(Client &client)
 {
 	std::cout << "GOTO" << std::endl;
 	client.list_cmd.push_back(new Avance(&client));
-	return ((client.ia.wanted_elem <= alone_transition_tab[ALONE_GOTO][ELEM_PRESENT]) ?
-		alone_transition_tab[ALONE_PICKUP][GO_TO] : alone_transition_tab[ALONE_PICKUP][BACK_TO]);
+	return (ALONE_INIT);
+	// return ((client.ia.wanted_elem <= alone_transition_tab[ALONE_GOTO][ELEM_PRESENT]) ?
+	// 	alone_transition_tab[ALONE_PICKUP][GO_TO] : alone_transition_tab[ALONE_PICKUP][BACK_TO]);
 }
