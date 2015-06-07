@@ -82,3 +82,16 @@ void						Inventory::print(void) {
 		it++;
 	}
 }
+
+char						Inventory::minify(void){
+	unsigned char			c = 0;
+	unsigned char			mask = 1;
+	int						i = 1;
+
+	for(auto &it : _data){
+		i++;
+		if (it.second > 0)
+			c |= (mask << i);
+	}
+	return (c);
+}

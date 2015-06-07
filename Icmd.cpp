@@ -106,6 +106,7 @@ void	Voir::execute(){
 void	Voir::parseAnswer(std::string answer){
 	std::cout << _cmd_name << ": " << answer << std::endl;
 	_client->ia.last_vision = 0;
+	_client->map->fill_map(answer);
 	this->_client->list_cmd.remove(this);
 	delete(this);
 }
@@ -357,6 +358,7 @@ void	Welcome::parseAnswer(std::string answer){
 		space = answer.find(" ");
 		this->_client->map_x = stoi(answer.substr(0, space));
 		this->_client->map_y =  stoi(answer.substr(space + 1, answer.size() - space));
+		_client->map = new Map(_client->map_x, _client->map_y, _client); /*RM*/
 		_client->busy = false;
 		this->_client->list_cmd.remove(this);
 		if (_client->remaining_slots <= 0)

@@ -282,6 +282,19 @@ std::list<Icmd*>		Map::gen_avance(int n) {
 	return (li);
 }
 
+std::ostream & 		operator<<(std::ostream &o, Map const &rhs){
+	int		i = -1;
+	int		j = -1;
+
+	while (++i < rhs.map_y)
+	{
+		j = -1;
+		while (++j < rhs.map_x)
+			o << rhs.map[i][j]->minify();
+	}
+	return (o);
+}
+
 // int		main(int ac, char **av) {
 	
 // 	if (ac == 4) {

@@ -48,5 +48,6 @@ public:
 	int											direction;
 };
 
+std::ostream & 		operator<<(std::ostream &o, Map const &rhs);
 
 #endif

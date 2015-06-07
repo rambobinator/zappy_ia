@@ -72,8 +72,10 @@ void	Client::process(void) {
 		}
 		tmp++;
 	}
-	if (!busy && list_cmd.size() <= 10)
+	if (!busy && list_cmd.size() <= 10){
+		sleep(1);
 		ia.think(*this); /*     <---------------------     HERE IS THE BLACK BOX*/
+	}
 }
 
 void	Client::loop_client(void){

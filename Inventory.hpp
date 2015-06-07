@@ -18,6 +18,7 @@ class Inventory
 		void						setData(std::string str);
 		void						resetData(void);
 		void						print(void);
+		char						minify(void);
 
 	private:
 		std::map<std::string, int>	_data;
