@@ -18,6 +18,7 @@ std::string	Avance::getCmd(){
 void	Avance::execute(){
 	_done = true;
 	_client->buf_write.add(getCmd());
+	_client->map->add_avance();
 };
 
 void	Avance::parseAnswer(std::string answer){

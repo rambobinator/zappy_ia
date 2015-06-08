@@ -136,6 +136,26 @@ void						Map::add_direction(int i) {
 		this->direction = this->direction % 4;
 }
 
+void						Map::add_avance(void) {
+	if (this->direction == 0)
+		this->y -= 1;
+	else if (this->direction == 1)
+		this->x += 1;
+	else if (this->direction == 2)
+		this->y += 1;
+	else if (this->direction == 3)
+		this->x -= 1;
+	if (this->x < 0)
+		this->x = this->map_x + this->x;
+	else if (this->x >= this->map_x)
+		this->x = this->x - this->map_x;
+	if (this->y < 0)
+		this->y = this->map_y + this->y;
+	else if (this->y >= this->map_y)
+		this->y = this->y - this->map_y;
+
+}
+
 std::list<Icmd*>			Map::path_find(std::string str) {
 	int								i;
 	int								j;

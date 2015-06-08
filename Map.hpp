@@ -33,6 +33,7 @@ public:
 	void						fill_case(Point p, std::string str);
 	void						print(void);
 	void						add_direction(int i);
+	void						add_avance(void);
 
 	Point						normalizer(Point p);
 	std::list<Icmd*>			path_find(std::string str);
