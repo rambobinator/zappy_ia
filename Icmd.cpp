@@ -325,7 +325,7 @@ void	Connect_nbr::parseAnswer(std::string answer){
 	delete(this);
 }
 /*____________________________________*/
-/*___________________________CONNECT_NBR*/
+/*___________________________WELCOME*/
 Welcome::Welcome(Client &new_client) {
 	_done = false;
 	_delay = 0;

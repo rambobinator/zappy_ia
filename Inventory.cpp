@@ -10,6 +10,16 @@ Inventory::Inventory(void){
 	_data["thystame"] = 0;
 }
 
+Inventory::Inventory(int a, int b, int c, int d, int e, int f, int g) {
+	_data["nourriture"] = a;
+	_data["linemate"] = b;
+	_data["deraumere"] = c;
+	_data["sibur"] = d;
+	_data["mendiane"] = e;
+	_data["phiras"] = f;
+	_data["thystame"] = g;
+}
+
 Inventory::Inventory( Inventory const & src ){
 	*this = src;
 }
@@ -60,6 +70,21 @@ void						Inventory::setData(std::string str) {
 	if (this->_data.find(tmp) != this->_data.end()) {
 		this->_data[tmp]++;
 	}
+}
+
+Inventory						Inventory::subInventory(Inventory & inv) {
+	Inventory								ret;
+	std::map<std::string, int>::iterator	it;
+
+	it = inv._data.begin();
+	while (it != inv._data.end()) {
+		if (_data[it->first] > it->second)
+			ret._data[it->first] = 0;
+		else
+			ret._data[it->first] = it->second - _data[it->first];
+		it++;
+	}
+	return (ret);
 }
 
 void						Inventory::resetData(void) {

@@ -18,6 +18,15 @@ Ia::Ia( void )
 	alone_funct[ALONE_VOIR] = &Ia::alone_voir;
 	alone_funct[ALONE_PICKUP] = &Ia::alone_pickup;
 	alone_funct[ALONE_GOTO] = &Ia::alone_goto;
+
+	/*Incant Tab*/
+	incant_tab.push_back(new Inventory(0,1,0,0,0,0,0));
+	incant_tab.push_back(new Inventory(0,1,1,1,0,0,0));
+	incant_tab.push_back(new Inventory(0,2,0,1,0,2,0));
+	incant_tab.push_back(new Inventory(0,1,1,2,0,1,0));
+	incant_tab.push_back(new Inventory(0,1,2,1,3,0,0));
+	incant_tab.push_back(new Inventory(0,1,2,3,0,1,0));
+	incant_tab.push_back(new Inventory(0,2,2,2,2,2,1));
 }
 
 Ia::Ia( Ia const & src )

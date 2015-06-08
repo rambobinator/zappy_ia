@@ -2,6 +2,8 @@
 # define IA_HPP
 
 #include <iostream>
+#include <vector>
+#include "Inventory.hpp"
 
 /*UTILS*/
 #define MAX_CMD 10
@@ -64,7 +66,8 @@ class Ia
 		int			alone_goto(Client &client);
 
 		/*MOTHER*/
-		void		role_mother(Client &client);
+		void						role_mother(Client &client);
+		std::vector<Inventory*>		incant_tab;
 
 		/*FEEDER*/
 		void		role_feeder(Client &client);

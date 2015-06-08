@@ -9,6 +9,7 @@ class Inventory
 {
 	public:
 		Inventory();
+		Inventory(int a, int b, int c, int d, int e, int f, int g);
 		Inventory( Inventory const & src );
 		~Inventory();
 		Inventory &		operator=( Inventory const & rhs );
@@ -16,6 +17,7 @@ class Inventory
 		std::map<std::string, int>	getData(void)const;
 		void						setData(std::stringstream &ss);
 		void						setData(std::string str);
+		Inventory					subInventory(Inventory & inv);
 		void						resetData(void);
 		void						print(void);
 		char						minify(void);
