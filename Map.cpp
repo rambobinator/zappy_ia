@@ -127,6 +127,17 @@ void						Map::print() {
 	}
 }
 
+int							Map::get_nb(std::string str) {
+	return (map[this->x][this->y]->getData()[str]);
+}
+
+void						Map::remove(std::string str) {
+	map[x][y]->minusData(str);
+}
+
+void						Map::reset(std::string str) {
+	map[x][y]->setData(str, 0);
+}
 
 void						Map::add_direction(int i) {
 	this->direction += i;

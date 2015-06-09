@@ -79,12 +79,17 @@ void	Client::process(void) {
 }
 
 void	Client::loop_client(void){
+	struct timeval    timeout;
+
+    timeout.tv_sec = 0;
+    timeout.tv_usec = 10;
 	while (1) {
 		FD_ZERO(&this->read_fds);
 		FD_ZERO(&this->write_fds);
 		FD_SET(this->sock, &this->read_fds);
-		FD_SET(this->sock, &this->write_fds);
-		select(this->sock + 1, &this->read_fds, &this->write_fds, NULL, NULL);
+		if (this->buf_write.to_str().size() > 0)
+			FD_SET(this->sock, &this->write_fds);
+		select(this->sock + 1, &this->read_fds, &this->write_fds, NULL, &timeout);
 		this->test_read();
 		this->process();
 		this->test_write();
@@ -197,13 +202,17 @@ void	Client::cmd_answer(std::string cmd) {/*CLIENT RECEIVE AN OTHER CMD*/
 	(void)cmd;
 	std::list<Icmd*>::iterator	tmp;
 
-	if (cmd.compare("BIENVENUE") == 0)
+	if (cmd.compare("BIENVENUE") == 0) {
+		std::cout << "Bienvenue !" << std::endl;
 		this->list_cmd.push_back(new Welcome(*this));
+	}
 	else {
 		tmp = this->list_cmd.begin();
 		while (tmp != this->list_cmd.end()) {
 			if ((*tmp)->_done == true) {
 				(*tmp)->parseAnswer(cmd);
+				if (this->list_cmd.size() == 0)
+					this->busy = false;
 				return ;
 			}
 			tmp++;

@@ -37,6 +37,15 @@ enum	e_alone_states
 	ALONE_STATES_NBR
 };
 
+enum	e_feeder_states
+{
+	FEEDER_INIT,
+	FEEDER_VOIR,
+	FEEDER_PICKUP,
+	FEEDER_GOTO,
+	FEEDER_STATES_NBR
+};
+
 class Client;
 
 class Ia
@@ -71,6 +80,12 @@ class Ia
 
 		/*FEEDER*/
 		void		role_feeder(Client &client);
+		Alone		feeder_funct[FEEDER_STATES_NBR];
+		int			feeder_init(Client &client);
+		int			feeder_voir(Client &client);
+		int			feeder_pickup(Client &client);
+		int			feeder_goto(Client &client);
+
 
 		/*PICKER*/
 		void		role_picker(Client &client);

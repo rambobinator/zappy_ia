@@ -17,6 +17,8 @@ class Inventory
 		std::map<std::string, int>	getData(void)const;
 		void						setData(std::stringstream &ss);
 		void						setData(std::string str);
+		void						setData(std::string str, int n);
+		void						minusData(std::string str);
 		Inventory					subInventory(Inventory & inv);
 		void						resetData(void);
 		void						print(void);

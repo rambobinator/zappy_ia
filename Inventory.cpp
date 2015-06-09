@@ -72,6 +72,15 @@ void						Inventory::setData(std::string str) {
 	}
 }
 
+void						Inventory::setData(std::string str, int n) {
+	this->_data[str] = n;
+}
+
+void							Inventory::minusData(std::string str) {
+	if (this->_data[str] > 0)
+		this->_data[str]--;
+}
+
 Inventory						Inventory::subInventory(Inventory & inv) {
 	Inventory								ret;
 	std::map<std::string, int>::iterator	it;

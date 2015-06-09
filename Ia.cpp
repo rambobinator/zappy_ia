@@ -3,7 +3,7 @@
 
 Ia::Ia( void )
 {
-	role = ALONE;
+	role = FEEDER;
 	last_vision = -1;
 	wanted_elem = -1;
 
@@ -18,6 +18,12 @@ Ia::Ia( void )
 	alone_funct[ALONE_VOIR] = &Ia::alone_voir;
 	alone_funct[ALONE_PICKUP] = &Ia::alone_pickup;
 	alone_funct[ALONE_GOTO] = &Ia::alone_goto;
+
+	/*FEEDER*/
+	feeder_funct[FEEDER_INIT] = &Ia::feeder_init;
+	feeder_funct[FEEDER_VOIR] = &Ia::feeder_voir;
+	feeder_funct[FEEDER_PICKUP] = &Ia::feeder_pickup;
+	feeder_funct[FEEDER_GOTO] = &Ia::feeder_goto;
 
 	/*Incant Tab*/
 	incant_tab.push_back(new Inventory(0,1,0,0,0,0,0));
@@ -61,7 +67,10 @@ void	Ia::role_mother(Client &client)
 
 void	Ia::role_feeder(Client &client)
 {
-	(void)client;
+	int		ret;
+	while (client.busy != true) {
+		ret = (*this.*feeder_funct[ret])(client);
+	}
 }
 
 void	Ia::role_picker(Client &client)

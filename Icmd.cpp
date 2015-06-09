@@ -23,6 +23,7 @@ void	Avance::execute(){
 
 void	Avance::parseAnswer(std::string answer){
 	std::cout << _cmd_name << ": " << answer << std::endl;
+	this->_client->ia.last_vision = -1;
 	this->_client->list_cmd.remove(this);
 	delete(this);
 }
@@ -162,6 +163,10 @@ void	Prend::execute(){
 };
 
 void	Prend::parseAnswer(std::string answer){
+	if (answer.compare("ok") == 0)
+		_client->map->remove(_args);
+	else if (answer.compare("ko") == 0)
+		_client->map->reset(_args);
 	std::cout << _cmd_name << ": " << answer << std::endl;
 	this->_client->list_cmd.remove(this);
 	delete(this);
