@@ -73,7 +73,7 @@ void	Client::process(void) {
 		tmp++;
 	}
 	if (!busy && list_cmd.size() <= 10){
-		sleep(1);
+		std::cout << "-----" << id << "---" << "thinking" << std::endl;
 		ia.think(*this); /*     <---------------------     HERE IS THE BLACK BOX*/
 	}
 }
@@ -82,7 +82,7 @@ void	Client::loop_client(void){
 	struct timeval    timeout;
 
     timeout.tv_sec = 0;
-    timeout.tv_usec = 10;
+    timeout.tv_usec = 0;
 	while (1) {
 		FD_ZERO(&this->read_fds);
 		FD_ZERO(&this->write_fds);
@@ -189,7 +189,7 @@ void	Client::cmd_broadcast(std::string cmd) {/*CLIENT RECEIVE <message>*/
 
 void	Client::cmd_die(std::string cmd) {/*CLIENT RECEIVE <mort>*/
 	(void)cmd;
-	std::cout << "YOU DIED !" << std::endl;
+	std::cout << id << "YOU DIED !" << std::endl;
 	quit();
 }
 

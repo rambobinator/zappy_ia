@@ -22,7 +22,7 @@ void	Avance::execute(){
 };
 
 void	Avance::parseAnswer(std::string answer){
-	std::cout << _cmd_name << ": " << answer << std::endl;
+	std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
 	this->_client->ia.last_vision = -1;
 	this->_client->list_cmd.remove(this);
 	delete(this);
@@ -51,7 +51,7 @@ void	Droite::execute(){
 };
 
 void	Droite::parseAnswer(std::string answer){
-	std::cout << _cmd_name << ": " << answer << std::endl;
+	std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
 	this->_client->list_cmd.remove(this);
 	delete(this);
 }
@@ -80,7 +80,7 @@ void	Gauche::execute(){
 };
 
 void	Gauche::parseAnswer(std::string answer){
-	std::cout << _cmd_name << ": " << answer << std::endl;
+	std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
 	this->_client->list_cmd.remove(this);
 	delete(this);
 }
@@ -106,7 +106,7 @@ void	Voir::execute(){
 };
 
 void	Voir::parseAnswer(std::string answer){
-	std::cout << _cmd_name << ": " << answer << std::endl;
+	std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
 	_client->ia.last_vision = 0;
 	_client->map->fill_map(answer);
 	this->_client->list_cmd.remove(this);
@@ -133,7 +133,7 @@ void	Inventaire::execute(){
 };
 
 void	Inventaire::parseAnswer(std::string answer){
-	std::cout << _cmd_name << ": " << answer << std::endl;
+	std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
 	this->_client->list_cmd.remove(this);
 	delete(this);
 }
@@ -167,7 +167,7 @@ void	Prend::parseAnswer(std::string answer){
 		_client->map->remove(_args);
 	else if (answer.compare("ko") == 0)
 		_client->map->reset(_args);
-	std::cout << _cmd_name << ": " << answer << std::endl;
+	std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
 	this->_client->list_cmd.remove(this);
 	delete(this);
 }
@@ -194,7 +194,7 @@ void	Pose::execute(){
 };
 
 void	Pose::parseAnswer(std::string answer){
-	std::cout << _cmd_name << ": " << answer << std::endl;
+	std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
 	this->_client->list_cmd.remove(this);
 	delete(this);
 }
@@ -219,7 +219,7 @@ void	Expulse::execute(){
 };
 
 void	Expulse::parseAnswer(std::string answer){
-	std::cout << _cmd_name << ": " << answer << std::endl;
+	std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
 	this->_client->list_cmd.remove(this);
 	delete(this);
 }
@@ -253,7 +253,7 @@ void	Broadcast::execute(){
 };
 
 void	Broadcast::parseAnswer(std::string answer){
-	std::cout << _cmd_name << ": " << answer << std::endl;
+	std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
 	this->_client->list_cmd.remove(this);
 	delete(this);
 }
@@ -278,7 +278,7 @@ void	Incantation::execute(){
 };
 
 void	Incantation::parseAnswer(std::string answer){
-	std::cout << _cmd_name << ": " << answer << std::endl;
+	std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
 	delete(this);
 }
 /*____________________________________*/
@@ -302,7 +302,7 @@ void	Fork::execute(){
 };
 
 void	Fork::parseAnswer(std::string answer){
-	std::cout << _cmd_name << ": " << answer << std::endl;
+	std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
 	delete(this);
 }
 /*____________________________________*/
@@ -326,7 +326,7 @@ void	Connect_nbr::execute(){
 };
 
 void	Connect_nbr::parseAnswer(std::string answer){
-	std::cout << _cmd_name << ": " << answer << std::endl;
+	std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
 	this->_client->list_cmd.remove(this);
 	delete(this);
 }

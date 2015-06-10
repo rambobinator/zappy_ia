@@ -170,9 +170,9 @@ void						Map::add_avance(void) {
 std::list<Icmd*>			Map::path_find(std::string str) {
 	int								i;
 	int								j;
-	std::list<Point>				li;
+	std::vector<Point>				li;
 	std::vector<std::list<Icmd*>>	vec;
-	std::list<Point>::iterator		it;
+	int								it;
 	std::list<Icmd*>				nu;
 	int								min;
 	int								i_min;
@@ -189,9 +189,9 @@ std::list<Icmd*>			Map::path_find(std::string str) {
 		}
 		i++;
 	}
-	it = li.begin();
-	while (it != li.end()) {
-		vec.push_back(this->best_path(*it));
+	it = 0;
+	while (it < (int)li.size()) {
+		vec.push_back(this->best_path(li[it]));
 		it++;
 	}
 	if (vec.empty())
@@ -206,6 +206,7 @@ std::list<Icmd*>			Map::path_find(std::string str) {
 		}
 		i++;
 	}
+	std::cout << client->id << " to: {" << li[i_min].x << ";" << li[i_min].y << "}" << std::endl;
 	return (vec[i_min]);
 }
 

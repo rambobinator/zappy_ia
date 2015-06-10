@@ -67,7 +67,8 @@ void	Ia::role_mother(Client &client)
 
 void	Ia::role_feeder(Client &client)
 {
-	int		ret;
+	static int		ret = 0;
+
 	while (client.busy != true) {
 		ret = (*this.*feeder_funct[ret])(client);
 	}
