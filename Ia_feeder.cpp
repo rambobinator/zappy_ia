@@ -37,6 +37,10 @@ int			Ia::feeder_voir(Client &client) {
 			return (FEEDER_PICKUP);
 		}
 		else {
+			if (rand() % 2 == 0)
+				client.list_cmd.push_back(new Gauche(&client));
+			else
+				client.list_cmd.push_back(new Droite(&client));	
 			client.list_cmd.push_back(new Avance(&client));
 			client.list_cmd.push_back(new Avance(&client));
 			return (FEEDER_INIT);
