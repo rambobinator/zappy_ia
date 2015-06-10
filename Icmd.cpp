@@ -18,12 +18,12 @@ std::string	Avance::getCmd(){
 void	Avance::execute(){
 	_done = true;
 	_client->buf_write.add(getCmd());
-	_client->map->add_avance();
 };
 
 void	Avance::parseAnswer(std::string answer){
 	std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
 	this->_client->ia.last_vision = -1;
+	_client->map->add_avance();
 	this->_client->list_cmd.remove(this);
 	delete(this);
 }
@@ -46,12 +46,12 @@ std::string	Droite::getCmd(){
 
 void	Droite::execute(){
 	_done = true;
-	_client->map->add_direction(1);
 	_client->buf_write.add(getCmd());
 };
 
 void	Droite::parseAnswer(std::string answer){
 	std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
+	_client->map->add_direction(1);
 	this->_client->list_cmd.remove(this);
 	delete(this);
 }
@@ -75,12 +75,12 @@ std::string	Gauche::getCmd(){
 
 void	Gauche::execute(){
 	_done = true;
-	_client->map->add_direction(-1);
 	_client->buf_write.add(getCmd());
 };
 
 void	Gauche::parseAnswer(std::string answer){
 	std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
+	_client->map->add_direction(-1);
 	this->_client->list_cmd.remove(this);
 	delete(this);
 }

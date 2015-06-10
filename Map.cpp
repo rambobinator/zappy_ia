@@ -42,12 +42,13 @@ void						Map::fill_case(Point p, std::string str) {
 	if (this->direction == 0)
 		a = this->normalizer({this->x + p.x, this->y + p.y});
 	else if (this->direction == 1)
-		a = this->normalizer({this->x + p.y, this->y - p.x});
+		a = this->normalizer({this->x - p.y, this->y + p.x});
 	else if (this->direction == 2)
 		a = this->normalizer({this->x - p.x, this->y - p.y});
 	else if (this->direction == 3)
-		a = this->normalizer({this->x - p.y, this->y + p.x});
+		a = this->normalizer({this->x + p.y, this->y - p.x});
 	this->map[a.x][a.y]->setData(str);
+	std::cout << "fill_map " << a.x << ";" << a.y << std::endl;
 }
 
 Point		Map::normalizer(Point p) {
@@ -143,7 +144,7 @@ void						Map::add_direction(int i) {
 	this->direction += i;
 	if (this->direction < 0)
 		this->direction += 4;
-	else if (this->direction > 4)
+	else if (this->direction >= 4)
 		this->direction = this->direction % 4;
 }
 
