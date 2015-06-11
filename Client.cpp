@@ -64,13 +64,16 @@ int		Client::connect(std::string ip, std::string port) {
 
 void	Client::process(void) {
 	std::list<Icmd*>::iterator		tmp;
+	int								i;
 
+	i = 0;
 	tmp = this->list_cmd.begin();
-	while (tmp != this->list_cmd.end()) {
+	while (tmp != this->list_cmd.end() && i < 10) {
 		if ((*tmp)->_done == false) {
 			(*tmp)->execute();
 		}
 		tmp++;
+		i++;
 	}
 	if (!busy && list_cmd.size() <= 10){
 		std::cout << "-----" << id << "---" << "thinking" << std::endl;
