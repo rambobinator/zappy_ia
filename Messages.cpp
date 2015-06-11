@@ -76,6 +76,7 @@ std::ostream & 		operator<<(std::ostream &o, Message const &rhs){
 ** MESSAGE PROTOCOL
 ** recv:
 ** <message> <<dir>,<<PID>...><CMD1> <CMD2> <CMD...> <END> <TEAM> <ID> <INVENTORY>>
+list_cmd.push_back(new Broadcast(*this, args2string(3, PID, 1234, SET_AS_FEEDER)));
 ** pid is optional to specify receptor
 **
 ** send:

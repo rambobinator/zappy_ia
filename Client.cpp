@@ -14,6 +14,7 @@
 #include "Client.hpp"
 #include "Icmd.hpp"
 
+
 Client::Client(char **av) : team_name(av[1]), args(av) {
 	busy = true;
 	id = getpid();
@@ -253,12 +254,12 @@ void		Client::count_team(Message *mes){
 	// 	std::cout << "MESS by " << *(*it) << std::endl;
 }
 
-void				set_as_feeder(Message *mes){
+void				Client::set_as_feeder(Message *mes){
 	(void)mes;
 	ia.role = FEEDER;
 }
 
-void				set_as_picker(Message *mes){
+void				Client::set_as_picker(Message *mes){
 	(void)mes;
 	ia.role = PICKER;
 }
