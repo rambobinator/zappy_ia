@@ -22,6 +22,8 @@ Client::Client(char **av) : team_name(av[1]), args(av) {
 	msgs = new Messages(av[1], id, &inventory);
 	msgs_callback[ROLL_CALL] = &Client::send_present;
 	msgs_callback[PRESENT] = &Client::count_team;
+	msgs_callback[SET_AS_FEEDER] = &Client::set_as_feeder;
+	msgs_callback[SET_AS_PICKER] = &Client::set_as_picker;
 	this->sock = this->connect(av[3], av[2]);
 	this->cmd_tab = {
 		{"message", &Client::cmd_broadcast},
@@ -175,7 +177,12 @@ void	Client::read_messages(void){ /*STACK THE RIGHT CMD DEPENDING ON THE ORDERS*
 			{
 				callback_code = stoi(buf);
 				if (callback_code > 0 && callback_code < CMD_CALLBACK_NBR)
-					(*this.*msgs_callback[callback_code])(*it); /*WTF*/
+				{
+					if (!(*it)->adressee) /*WE ALL DOING IT*/
+						(*this.*msgs_callback[callback_code])(*it); /*WTF*/
+					else if ((*it)->adressee == id) /*EXCEPTION FOR THIS ID*/
+						(*this.*msgs_callback[callback_code])(*it); /*WTF*/
+				}
 			}
 			(*it)->read = true;
 			// std::cout << *msgs;/*RM*/
@@ -205,7 +212,7 @@ void	Client::cmd_answer(std::string cmd) {/*CLIENT RECEIVE AN OTHER CMD*/
 	(void)cmd;
 	std::list<Icmd*>::iterator	tmp;
 
-	if (cmd.compare("BIENVENUE") == 0) {
+	if (cmd.compare("BIENVENUE") == 0){
 		std::cout << "Bienvenue !" << std::endl;
 		this->list_cmd.push_back(new Welcome(*this));
 	}
@@ -239,7 +246,19 @@ void		Client::count_team(Message *mes){
 	others.push_back(new Coop(mes->id, mes->dir, mes->team, mes->inventory));
 	others.sort(sort_by_pid);
 	others.unique(unique_by_pid);
+	if ((*others.begin())->id == id)
+		ia.role = MOTHER;
 	std::cout << "WE ARE " << others.size() << " CURRENTLY IN GAME " << std::endl; /*DEBUG BUT WORKING :)*/
 	// for (std::list<Coop *>::iterator it = others.begin(); it != others.end(); it++)
 	// 	std::cout << "MESS by " << *(*it) << std::endl;
+}
+
+void				set_as_feeder(Message *mes){
+	(void)mes;
+	ia.role = FEEDER;
+}
+
+void				set_as_picker(Message *mes){
+	(void)mes;
+	ia.role = PICKER;
 }

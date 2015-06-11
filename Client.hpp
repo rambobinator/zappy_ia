@@ -76,6 +76,8 @@ class Client
 		/*CALLBACK*/
 		void				send_present(Message *);
 		void				count_team(Message *);
+		void				set_as_feeder(Message *);
+		void				set_as_picker(Message *);
 		/*DIRECT CMD*/
 		void				read_messages(void);
 		void				cmd_broadcast(std::string cmd);

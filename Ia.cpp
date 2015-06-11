@@ -63,6 +63,7 @@ void	Ia::role_alone(Client &client)
 void	Ia::role_mother(Client &client)
 {
 	(void)client;
+	std::cout << "I AM YOUR MOTHER" << std::endl;
 }
 
 void	Ia::role_feeder(Client &client)

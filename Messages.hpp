@@ -10,19 +10,25 @@
 enum	e_states
 {
 	END,
+	PID,
 	ROLL_CALL,
 	PRESENT,
+	SET_AS_FEEDER,
+	SET_AS_PICKER,
 	CMD_CALLBACK_NBR
 };
 
 class Message
 {
 	public:
-		Message(){};
+		Message(){
+			adressee = 0;
+		};
 		Message(std::string team, int id, int dir, Inventory inv, std::string data) : team(team), id(id), dir(dir), inventory(inv), data(data), read(false){};
 		~Message();
 		std::string			team;
 		int					id;
+		int					adressee;
 		int					dir;
 		Inventory			inventory;
 		std::string			data;
