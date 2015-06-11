@@ -310,8 +310,6 @@ void	Fork::execute(){
 
 void	Fork::parseAnswer(std::string answer){
 	std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
-	if (answer.compare("ok") == 0)
-		_client->new_client();
 	this->_client->list_cmd.remove(this);
 	delete(this);
 }
