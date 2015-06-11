@@ -34,6 +34,7 @@ public:
 	void						print(void);
 	int							get_nb(std::string str);
 	void						remove(std::string str);
+	void						setCase(std::string str);
 	void						reset(std::string str);
 	void						add_direction(int i);
 	void						add_avance(void);

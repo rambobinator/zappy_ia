@@ -114,10 +114,11 @@ void	Voir::parseAnswer(std::string answer){
 }
 /*____________________________________*/
 /*____________________________INVENTAIRE*/
-Inventaire::Inventaire(){
+Inventaire::Inventaire(Client *new_client){
 	_done = false;
 	_delay = INVENTAIRE_DELAY;
 	_cmd_name = INVENTAIRE_NAME;
+	_client = new_client;
 };
 
 Inventaire::~Inventaire(){};
@@ -132,8 +133,11 @@ void	Inventaire::execute(){
 	_client->buf_write.add(getCmd());
 };
 
-void	Inventaire::parseAnswer(std::string answer){
+void	Inventaire::parseAnswer(std::string answer) {
+	std::string		str;
+
 	std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
+	_client->inventory.setData2(answer);
 	this->_client->list_cmd.remove(this);
 	delete(this);
 }
@@ -163,8 +167,10 @@ void	Prend::execute(){
 };
 
 void	Prend::parseAnswer(std::string answer){
-	if (answer.compare("ok") == 0)
+	if (answer.compare("ok") == 0) {
 		_client->map->remove(_args);
+		_client->inventory.addData(_args);
+	}
 	else if (answer.compare("ko") == 0)
 		_client->map->reset(_args);
 	std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
@@ -283,10 +289,11 @@ void	Incantation::parseAnswer(std::string answer){
 }
 /*____________________________________*/
 /*_____________________________FORK*/
-Fork::Fork(){
+Fork::Fork(Client *new_client){
 	_done = false;
 	_delay = FORK_DELAY;
 	_cmd_name = FORK_NAME;
+	_client = new_client;
 };
 
 Fork::~Fork(){};
@@ -298,11 +305,14 @@ std::string	Fork::getCmd(){
 
 void	Fork::execute(){
 	_done = true;
-	std::cout << getCmd();/*ADD IN BUF INSTEAD*/
+	_client->buf_write.add(getCmd());
 };
 
 void	Fork::parseAnswer(std::string answer){
 	std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
+	if (answer.compare("ok") == 0)
+		_client->new_client();
+	this->_client->list_cmd.remove(this);
 	delete(this);
 }
 /*____________________________________*/
@@ -367,7 +377,7 @@ void	Welcome::parseAnswer(std::string answer){
 		_client->map = new Map(_client->map_x, _client->map_y, _client); /*RM*/
 		_client->busy = false;
 		this->_client->list_cmd.remove(this);
-		if (_client->remaining_slots <= 0)
+		if (_client->remaining_slots == 0)
 			_client->list_cmd.push_back(new Broadcast(*_client, args2string(1, ROLL_CALL)));
 		delete(this);
 	}

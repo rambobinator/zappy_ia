@@ -136,6 +136,10 @@ void						Map::remove(std::string str) {
 	map[x][y]->minusData(str);
 }
 
+void						Map::setCase(std::string str) {
+	map[x][y]->setData2(str);
+}
+
 void						Map::reset(std::string str) {
 	map[x][y]->setData(str, 0);
 }

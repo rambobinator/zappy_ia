@@ -103,7 +103,7 @@ class Voir : public Icmd
 class Inventaire : public Icmd
 {
 	public:
-		Inventaire();
+		Inventaire(Client *new_client);
 		virtual ~Inventaire();
 		std::string	getCmd();
 		void		execute();
@@ -174,7 +174,7 @@ class Incantation : public Icmd
 class Fork : public Icmd
 {
 	public:
-		Fork();
+		Fork(Client *new_client);
 		~Fork();
 		std::string	getCmd();
 		void		execute();

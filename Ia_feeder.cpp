@@ -19,6 +19,14 @@ enum	e_transition_tab_values
 // };
 
 int			Ia::feeder_init(Client &client) {
+	if (client.inventory.getData()["nourriture"] % 20 == 0) {
+		client.busy = true;
+		client.list_cmd.push_back(new Inventaire(&client));
+	}
+	else if (client.inventory.getData()["nourriture"] > 20 && client.others.size() < 6) {
+		client.busy = true;
+		client.list_cmd.push_back(new Fork(&client));
+	}
 	if (client.map->get_nb("nourriture") > 0)
 		return (FEEDER_PICKUP);
 	else

@@ -1,4 +1,5 @@
 #include "Inventory.hpp"
+#include <cstdlib>
 
 Inventory::Inventory(void){
 	_data["nourriture"] = 0;
@@ -72,6 +73,26 @@ void						Inventory::setData(std::string str) {
 	}
 }
 
+void						Inventory::setData2(std::string str) {
+	int				last;
+	int				last2;
+	std::string		tmp;
+	std::string		tmp2;
+
+	str = str.substr(1, str.size() - 2);
+	while ((last = str.find(",")) != (int)str.npos) {
+		last2 = str.find(" ");
+		tmp2 = str.substr(0, last2);
+		tmp = str.substr(last2 + 1, last - last2 - 1);
+		this->_data[tmp2] = atoi(tmp.c_str());
+		str.erase(0, last + 2);
+	}
+	last2 = str.find(" ");
+	tmp2 = str.substr(0, last2);
+	tmp = str.substr(last2 + 1, str.size() - last2 - 1);
+	this->_data[tmp2] = atoi(tmp.c_str());
+}
+
 void						Inventory::setData(std::string str, int n) {
 	this->_data[str] = n;
 }
@@ -79,6 +100,10 @@ void						Inventory::setData(std::string str, int n) {
 void							Inventory::minusData(std::string str) {
 	if (this->_data[str] > 0)
 		this->_data[str]--;
+}
+
+void							Inventory::addData(std::string str) {
+		this->_data[str]++;
 }
 
 Inventory						Inventory::subInventory(Inventory & inv) {
