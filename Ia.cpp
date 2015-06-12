@@ -25,6 +25,9 @@ Ia::Ia( void )
 	feeder_funct[FEEDER_PICKUP] = &Ia::feeder_pickup;
 	feeder_funct[FEEDER_GOTO] = &Ia::feeder_goto;
 
+	/*MOTHER*/
+	mother_funct[MOTHER_INIT] = &Ia::mother_init;
+
 	/*Incant Tab*/
 	incant_tab.push_back(new Inventory(0,1,0,0,0,0,0));
 	incant_tab.push_back(new Inventory(0,1,1,1,0,0,0));
@@ -62,8 +65,11 @@ void	Ia::role_alone(Client &client)
 
 void	Ia::role_mother(Client &client)
 {
-	(void)client;
-	std::cout << "I AM YOUR MOTHER" << std::endl;
+	static int		ret = 0;
+
+	while (client.busy != true) {
+		ret = (*this.*mother_funct[ret])(client);
+	}
 }
 
 void	Ia::role_feeder(Client &client)
