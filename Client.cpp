@@ -252,6 +252,8 @@ void		Client::count_team(Message *mes){
 	others.unique(unique_by_pid);
 	if ((*others.begin())->id == id)
 		ia.role = MOTHER;
+	else
+		ia.role = FEEDER;
 	std::cout << "WE ARE " << others.size() << " CURRENTLY IN GAME " << std::endl; /*DEBUG BUT WORKING :)*/
 	for (std::list<Coop *>::iterator it = others.begin(); it != others.end(); it++)
 		std::cout << "MESS by " << *(*it) << std::endl;
