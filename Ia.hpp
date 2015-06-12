@@ -103,6 +103,7 @@ class Ia
 		int			feeder_goto(Client &client);
 
 		/*PICKER*/
+		Alone		picker_funct[PICKER_STATES_NBR];
 		void		role_picker(Client &client);
 		int			picker_init(Client &client);
 

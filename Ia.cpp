@@ -30,7 +30,7 @@ Ia::Ia( void )
 	mother_funct[MOTHER_DISPATCH] = &Ia::mother_dispatch_role;
 
 	/*PICKER*/
-	
+	picker_funct[PICKER_INIT] = &Ia::picker_init;
 
 	/*Incant Tab*/
 	incant_tab.push_back(new Inventory(0,1,0,0,0,0,0));
@@ -87,7 +87,11 @@ void	Ia::role_feeder(Client &client)
 
 void	Ia::role_picker(Client &client)
 {
-	(void)client;
+	static int		ret = 0;
+
+	while (client.busy != true) {
+		ret = (*this.*picker_funct[ret])(client);
+	}	
 }
 
 Ia & Ia::operator=( Ia const & rhs )

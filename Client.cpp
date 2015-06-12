@@ -151,6 +151,7 @@ void	Client::test_write(void) {
 	if (FD_ISSET(this->sock, &this->write_fds) != 0) {
 		str = this->buf_write.to_str();
 		size = str.size();
+		std::cout << "SEND: " << str.c_str() << std::endl;
 		write(this->sock, str.c_str(), size);
 		this->buf_write.del(size);
 	}

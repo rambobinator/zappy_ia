@@ -14,6 +14,7 @@ int			Ia::mother_dispatch_role(Client &client)
 	int		feeder_nbr;
 
 	// std::cout << "MOTHER DISPATCH" << client.others.size() << std::endl;
+	client.busy = true;
 	feeder_nbr = ((client.others.size() - 1) * FEEDER_PERCENT) / 100;
 	for (std::list<Coop *>::iterator it = client.others.begin(); it != client.others.end(); it++){
 		if ((*it)->id == client.id)
