@@ -27,7 +27,7 @@ class Message
 			adressee = 0;
 			read = false;
 		};
-		Message(std::string team, int id, int dir, Inventory inv, std::string data) : team(team), id(id), dir(dir), inventory(inv), data(data), read(false), adressee(0){};
+		Message(std::string team, int id, int dir, Inventory inv, std::string data) : team(team), id(id),  adressee(0), dir(dir), inventory(inv), data(data), read(false){};
 		~Message();
 		std::string			team;
 		int					id;
