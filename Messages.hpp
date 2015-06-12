@@ -15,6 +15,8 @@ enum	e_states
 	PRESENT,
 	SET_AS_FEEDER,
 	SET_AS_PICKER,
+	FOLLOW_ME,
+	I_AM_HERE,
 	CMD_CALLBACK_NBR
 };
 

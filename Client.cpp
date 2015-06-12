@@ -25,6 +25,8 @@ Client::Client(char **av) : team_name(av[1]), args(av) {
 	msgs_callback[PRESENT] = &Client::count_team;
 	msgs_callback[SET_AS_FEEDER] = &Client::set_as_feeder;
 	msgs_callback[SET_AS_PICKER] = &Client::set_as_picker;
+	msgs_callback[FOLLOW_ME] = &Client::follow_me;
+	msgs_callback[I_AM_HERE] = &Client::i_am_here;
 	this->sock = this->connect(av[3], av[2]);
 	this->cmd_tab = {
 		{"message", &Client::cmd_broadcast},
@@ -263,3 +265,14 @@ void				Client::set_as_picker(Message *mes){
 	(void)mes;
 	ia.role = PICKER;
 }
+
+void				Client::follow_me(Message *mes){
+	(void)mes;
+	/*HERE LAUCH GO TO THE DIR (BRICE)*/
+}
+
+void				Client::i_am_here(Message *mes){
+	(void)mes;
+	/*HERE LAUCH GO TO THE DIR (BRICE)*/
+}
+

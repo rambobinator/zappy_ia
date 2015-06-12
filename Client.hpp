@@ -78,6 +78,9 @@ class Client
 		void				count_team(Message *);
 		void				set_as_feeder(Message *);
 		void				set_as_picker(Message *);
+		void				follow_me(Message *);
+		void				i_am_here(Message *);
+
 		/*DIRECT CMD*/
 		void				read_messages(void);
 		void				cmd_broadcast(std::string cmd);
