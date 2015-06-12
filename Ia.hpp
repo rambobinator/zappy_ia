@@ -46,6 +46,12 @@ enum	e_feeder_states
 	FEEDER_STATES_NBR
 };
 
+enum	e_mother_states
+{
+	MOTHER_INIT,
+	MOTHER_STATES_NBR
+};
+
 class Client;
 
 class Ia
@@ -75,7 +81,9 @@ class Ia
 		int			alone_goto(Client &client);
 
 		/*MOTHER*/
-		void						role_mother(Client &client);
+		void		role_mother(Client &client);
+		Alone		mother_funct[MOTHER_STATES_NBR];
+		int			mother_init(Client &client);
 		std::vector<Inventory*>		incant_tab;
 
 		/*FEEDER*/
@@ -85,7 +93,6 @@ class Ia
 		int			feeder_voir(Client &client);
 		int			feeder_pickup(Client &client);
 		int			feeder_goto(Client &client);
-
 
 		/*PICKER*/
 		void		role_picker(Client &client);
