@@ -14,7 +14,7 @@
 #include "Client.hpp"
 
 int			Ia::picker_init(Client &client) {
-	if (client.inventory.isEmpty()) {
+	if (client.needs.isEmpty()) {
 		role = FEEDER;
 		return (PICKER_INIT);
 	}

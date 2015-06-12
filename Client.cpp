@@ -249,8 +249,10 @@ void		Client::count_team(Message *mes){
 	others.push_back(new Coop(mes->id, mes->dir, mes->team, mes->inventory));
 	others.sort(sort_by_pid);
 	others.unique(unique_by_pid);
-	// if ((*others.begin())->id == id)
-	// 	ia.role = MOTHER;
+	if ((*others.begin())->id == id)
+		ia.role = MOTHER;
+	else
+		ia.role = FEEDER;
 	std::cout << "WE ARE " << others.size() << " CURRENTLY IN GAME " << std::endl; /*DEBUG BUT WORKING :)*/
 	// for (std::list<Coop *>::iterator it = others.begin(); it != others.end(); it++)
 	// 	std::cout << "MESS by " << *(*it) << std::endl;
