@@ -49,6 +49,7 @@ enum	e_feeder_states
 enum	e_mother_states
 {
 	MOTHER_INIT,
+	MOTHER_DISPATCH,
 	MOTHER_STATES_NBR
 };
 
@@ -84,6 +85,7 @@ class Ia
 		void		role_mother(Client &client);
 		Alone		mother_funct[MOTHER_STATES_NBR];
 		int			mother_init(Client &client);
+		int			mother_dispatch_role(Client &client);
 		std::vector<Inventory*>		incant_tab;
 
 		/*FEEDER*/

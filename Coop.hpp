@@ -13,6 +13,7 @@ class Coop
 		Coop( Coop const & src );
 		~Coop();
 		Coop &		operator=( Coop const & rhs );
+		int			role;
 		int			id;
 		int			dir;
 		Point		coord;
