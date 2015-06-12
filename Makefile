@@ -13,7 +13,8 @@
 NAME = client
 
 SRC = main.cpp Buffer.cpp Client.cpp Icmd.cpp Inventory.cpp Messages.cpp \
-	utils.cpp Map.cpp Coop.cpp Ia.cpp Ia_alone.cpp Ia_feeder.cpp Ia_mother.cpp
+	utils.cpp Map.cpp Coop.cpp Ia.cpp Ia_alone.cpp Ia_feeder.cpp Ia_mother.cpp \
+	Ia_picker.cpp
 
 all: $(NAME)
 

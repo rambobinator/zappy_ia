@@ -29,6 +29,9 @@ Ia::Ia( void )
 	mother_funct[MOTHER_INIT] = &Ia::mother_init;
 	mother_funct[MOTHER_DISPATCH] = &Ia::mother_dispatch_role;
 
+	/*PICKER*/
+	
+
 	/*Incant Tab*/
 	incant_tab.push_back(new Inventory(0,1,0,0,0,0,0));
 	incant_tab.push_back(new Inventory(0,1,1,1,0,0,0));

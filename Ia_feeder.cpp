@@ -27,6 +27,10 @@ int			Ia::feeder_init(Client &client) {
 	// 	client.busy = true;
 	// 	client.list_cmd.push_back(new Fork(&client));
 	// }
+	if (client.inventory.isEmpty() != 0) {
+		role = PICKER;
+		return (FEEDER_INIT);
+	}
 	if (client.map->get_nb("nourriture") > 0)
 		return (FEEDER_PICKUP);
 	else
