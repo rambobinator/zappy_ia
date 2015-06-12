@@ -172,6 +172,16 @@ void						Map::add_avance(void) {
 
 }
 
+void						Map::free_list(std::list<Icmd*> li) {
+	std::list<Icmd*>::iterator	it;
+
+	it = li.begin();
+	while (it != li.end()) {
+		delete(*it);
+		it++;
+	}
+}
+
 std::list<Icmd*>			Map::path_find(std::string str) {
 	int								i;
 	int								j;
@@ -204,11 +214,16 @@ std::list<Icmd*>			Map::path_find(std::string str) {
 	i = 0;
 	j = vec.size();
 	min = 1000;
+	i_min = -1;
 	while (i < j) {
 		if ((int)vec[i].size() < min) {
 			min = vec[i].size();
+			if (i_min != -1)
+				free_list(vec[i_min]);
 			i_min = i;
 		}
+		else
+			free_list(vec[i]);
 		i++;
 	}
 	std::cout << client->id << " to: {" << li[i_min].x << ";" << li[i_min].y << "}" << std::endl;

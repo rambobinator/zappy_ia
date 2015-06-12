@@ -249,8 +249,8 @@ void		Client::count_team(Message *mes){
 	others.push_back(new Coop(mes->id, mes->dir, mes->team, mes->inventory));
 	others.sort(sort_by_pid);
 	others.unique(unique_by_pid);
-	if ((*others.begin())->id == id)
-		ia.role = MOTHER;
+	// if ((*others.begin())->id == id)
+	// 	ia.role = MOTHER;
 	std::cout << "WE ARE " << others.size() << " CURRENTLY IN GAME " << std::endl; /*DEBUG BUT WORKING :)*/
 	// for (std::list<Coop *>::iterator it = others.begin(); it != others.end(); it++)
 	// 	std::cout << "MESS by " << *(*it) << std::endl;
@@ -266,9 +266,47 @@ void				Client::set_as_picker(Message *mes){
 	ia.role = PICKER;
 }
 
-void				Client::follow_me(Message *mes){
-	(void)mes;
-	/*HERE LAUCH GO TO THE DIR (BRICE)*/
+std::vector<Point>	g_tab_dir = {
+	{0,-1},
+	{-1,-1},
+	{-1,0},
+	{-1,1},
+	{0,1},
+	{1,1},
+	{1,0},
+	{1,-1}
+};
+
+Point				Client::pivot_p(Point p, int dir) {
+	Point	a;
+
+	if (dir == 0) {
+		a.x = p.x;
+		a.y = p.y;
+	}
+	else if (dir == 1) {
+		a.x = -p.y;
+		a.y = p.x;
+	}
+	else if (dir == 2) {
+		a.x = -p.x;
+		a.y = -p.y;
+	}
+	else if (dir == 3) {
+		a.x = p.y;
+		a.y = -p.x;
+	}
+	return (a);
+}
+
+void				Client::follow_me(Message *mes) {
+	Point	tmp;
+	std::list<Icmd*>	li;
+
+	tmp = pivot_p(g_tab_dir[mes->dir - 1], map->direction);
+	tmp = map->normalizer({tmp.x + map->x, tmp.y + map->y});
+	li = map->best_path(tmp);
+	list_cmd.splice(list_cmd.end(), li);
 }
 
 void				Client::i_am_here(Message *mes){

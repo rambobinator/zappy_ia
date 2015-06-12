@@ -40,6 +40,7 @@ public:
 	void						add_avance(void);
 
 	Point						normalizer(Point p);
+	void						free_list(std::list<Icmd*> li);
 	std::list<Icmd*>			path_find(std::string str);
 	std::list<Icmd*>			best_path(Point p);
 	std::list<Icmd*>			gen_avance(int n);

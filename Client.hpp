@@ -70,6 +70,7 @@ class Client
 		void				quit(void);
 		int					connect(std::string ip, std::string port);
 		void				new_client(void);
+		Point				pivot_p(Point p, int dir);
 
 		Messages			*msgs;
 		Callback			msgs_callback[CMD_CALLBACK_NBR];
