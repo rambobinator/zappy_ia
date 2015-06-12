@@ -25,6 +25,7 @@ class Inventory
 		void						resetData(void);
 		void						print(void);
 		char						minify(void);
+		int							isEmpty(void) ;
 
 	private:
 		std::map<std::string, int>	_data;

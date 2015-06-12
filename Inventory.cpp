@@ -93,6 +93,24 @@ void						Inventory::setData2(std::string str) {
 	this->_data[tmp2] = atoi(tmp.c_str());
 }
 
+int							Inventory::isEmpty(void) {
+	if (_data["nourriture"] != 0)
+		return (0);
+	if (_data["linemate"] != 0)
+		return (0);
+	if (_data["deraumere"] != 0)
+		return (0);
+	if (_data["sibur"] != 0)
+		return (0);
+	if (_data["mendiane"] != 0)
+		return (0);
+	if (_data["phiras"] != 0)
+		return (0);
+	if (_data["thystame"] != 0)
+		return (0);
+	return (1);
+}
+
 void						Inventory::setData(std::string str, int n) {
 	this->_data[str] = n;
 }

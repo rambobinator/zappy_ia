@@ -53,6 +53,12 @@ enum	e_mother_states
 	MOTHER_STATES_NBR
 };
 
+enum	e_picker_states
+{
+	PICKER_INIT,
+	PICKER_STATES_NBR
+};
+
 class Client;
 
 class Ia
@@ -98,6 +104,7 @@ class Ia
 
 		/*PICKER*/
 		void		role_picker(Client &client);
+		int			picker_init(Client &client);
 
 	private:
 
