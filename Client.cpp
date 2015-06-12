@@ -80,10 +80,10 @@ void	Client::process(void) {
 		tmp++;
 		i++;
 	}
-	if (!busy && list_cmd.size() <= 10){
-		std::cout << "-----" << id << "---" << "thinking" << std::endl;
-		ia.think(*this); /*     <---------------------     HERE IS THE BLACK BOX*/
-	}
+	// if (!busy && list_cmd.size() <= 10){
+	// 	std::cout << "-----" << id << "---" << "thinking" << std::endl;
+	// 	ia.think(*this); /*     <---------------------     HERE IS THE BLACK BOX*/
+	// }
 }
 
 void	Client::loop_client(void){
@@ -112,6 +112,7 @@ void	Client::test_read(void) {
 		if ((size = read(this->sock, str, BUFF_SIZE)) == 0)
 			this->quit();
 		str[size] = '\0';
+		// std::cout << "buffer = " << str << std::endl;
 		this->buf_read.add(str);
 		this->process_read();
 	}
@@ -240,7 +241,7 @@ void		Client::send_present(Message *mes){
 	list_cmd.push_back(new Broadcast(*this, args2string(1, PRESENT)));
 }
 
-bool		sort_by_pid(Coop *a, Coop *b){return (a->id < b->id);} /*COUNT UTILS*/
+bool		sort_by_pid(Coop *a, Coop *b){return (a->id <= b->id);} /*COUNT UTILS*/
 bool		unique_by_pid(Coop *a, Coop *b){return (a->id == b->id);}/*COUNT UTILS*/
 
 void		Client::count_team(Message *mes){
@@ -254,8 +255,8 @@ void		Client::count_team(Message *mes){
 	else
 		ia.role = FEEDER;
 	std::cout << "WE ARE " << others.size() << " CURRENTLY IN GAME " << std::endl; /*DEBUG BUT WORKING :)*/
-	// for (std::list<Coop *>::iterator it = others.begin(); it != others.end(); it++)
-	// 	std::cout << "MESS by " << *(*it) << std::endl;
+	for (std::list<Coop *>::iterator it = others.begin(); it != others.end(); it++)
+		std::cout << "MESS by " << *(*it) << std::endl;
 }
 
 void				Client::set_as_feeder(Message *mes){
@@ -313,6 +314,6 @@ void				Client::follow_me(Message *mes) {
 
 void				Client::i_am_here(Message *mes){
 	(void)mes;
-	/*HERE LAUCH GO TO THE DIR (BRICE)*/
+	
 }
 
