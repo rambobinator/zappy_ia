@@ -169,6 +169,7 @@ class Incantation : public Icmd
 		std::string	getCmd();
 		void		execute();
 		void		parseAnswer(std::string);
+		int			nb_answer;
 };
 
 class Fork : public Icmd

@@ -269,6 +269,7 @@ Incantation::Incantation(){
 	_done = false;
 	_delay = INCANTATION_DELAY;
 	_cmd_name = INCANTATION_NAME;
+	nb_answer = 0;
 };
 
 Incantation::~Incantation(){};
@@ -280,12 +281,18 @@ std::string	Incantation::getCmd(){
 
 void	Incantation::execute(){
 	_done = true;
-	std::cout << getCmd();/*ADD IN BUF INSTEAD*/
+	_client->buf_write.add(getCmd());
 };
 
-void	Incantation::parseAnswer(std::string answer){
-	std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
-	delete(this);
+void	Incantation::parseAnswer(std::string answer) {
+	if (nb_answer == 0) {
+		std::cout << _client->id << " " <<_client->list_cmd.size() << " {" << _client->map->x << ";" << _client->map->y << "}=>" << _client->map->direction << _cmd_name << ": " << answer << std::endl;
+		nb_answer++;
+	}
+	else {
+		this->_client->list_cmd.remove(this);
+		delete(this);
+	}
 }
 /*____________________________________*/
 /*_____________________________FORK*/
@@ -375,8 +382,8 @@ void	Welcome::parseAnswer(std::string answer){
 		_client->map = new Map(_client->map_x, _client->map_y, _client); /*RM*/
 		_client->busy = false;
 		this->_client->list_cmd.remove(this);
-		if (_client->remaining_slots == 0)
-			_client->list_cmd.push_back(new Broadcast(*_client, args2string(1, ROLL_CALL)));
+		// if (_client->remaining_slots == 0)
+		// 	_client->list_cmd.push_back(new Broadcast(*_client, args2string(1, ROLL_CALL)));
 		delete(this);
 	}
 }

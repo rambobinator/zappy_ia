@@ -24,6 +24,9 @@ Ia::Ia( void )
 	feeder_funct[FEEDER_VOIR] = &Ia::feeder_voir;
 	feeder_funct[FEEDER_PICKUP] = &Ia::feeder_pickup;
 	feeder_funct[FEEDER_GOTO] = &Ia::feeder_goto;
+	feeder_funct[FEEDER_STONE] = &Ia::feeder_stone;
+	feeder_funct[FEEDER_INCANT] = &Ia::feeder_incant;
+	level = 1;
 
 	/*MOTHER*/
 	mother_funct[MOTHER_INIT] = &Ia::mother_init;

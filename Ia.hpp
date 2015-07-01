@@ -43,6 +43,8 @@ enum	e_feeder_states
 	FEEDER_VOIR,
 	FEEDER_PICKUP,
 	FEEDER_GOTO,
+	FEEDER_STONE,
+	FEEDER_INCANT,
 	FEEDER_STATES_NBR
 };
 
@@ -101,6 +103,9 @@ class Ia
 		int			feeder_voir(Client &client);
 		int			feeder_pickup(Client &client);
 		int			feeder_goto(Client &client);
+		int			feeder_stone(Client &client);
+		int			feeder_incant(Client &client);
+		int			level;
 
 		/*PICKER*/
 		Alone		picker_funct[PICKER_STATES_NBR];
