@@ -265,10 +265,11 @@ void	Broadcast::parseAnswer(std::string answer){
 }
 /*____________________________________*/
 /*_____________________________INCANTATION*/
-Incantation::Incantation(){
+Incantation::Incantation(Client *new_client) {
 	_done = false;
 	_delay = INCANTATION_DELAY;
 	_cmd_name = INCANTATION_NAME;
+	_client = new_client;
 	nb_answer = 0;
 };
 

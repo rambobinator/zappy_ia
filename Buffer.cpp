@@ -37,8 +37,19 @@ void			Buffer::add(std::string str) {
 	int		rest;
 	int		size;
 
+
 	size = str.size();
+
+		std::cout << "BUG" << std::endl;
+		std::cout << "--" << this->buff << ".." << std::endl;
+		std::cout << "--" << this->start << std::endl;
+		std::cout << "--" << this->end << std::endl;
+		std::cout << "--" << size << std::endl;
+		std::cout << "--" << str << std::endl;
+		std::cout << "--" << this->buff.size() << std::endl;
+
 	rest = BUFF_SIZE - this->end;
+
 	if (size <= rest) {
 		this->buff.replace(this->end, size, str);
 		this->end += size;

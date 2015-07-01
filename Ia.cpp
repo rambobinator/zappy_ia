@@ -83,6 +83,7 @@ void	Ia::role_feeder(Client &client)
 {
 	static int		ret = 0;
 
+	std::cout << "size list    " <<  client.list_cmd.size() << std::endl;
 	while (client.busy != true) {
 		ret = (*this.*feeder_funct[ret])(client);
 	}

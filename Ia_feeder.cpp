@@ -19,6 +19,7 @@ enum	e_transition_tab_values
 // };
 
 int			Ia::feeder_init(Client &client) {
+	std::cout << "INIT" << std::endl;
 	if (client.inventory.getData()["nourriture"] % 20 == 0) {
 		client.busy = true;
 		client.list_cmd.push_back(new Inventaire(&client));
@@ -41,6 +42,7 @@ int			Ia::feeder_init(Client &client) {
 }
 
 int			Ia::feeder_voir(Client &client) {
+	std::cout << "VOIR" << std::endl;
 	std::list<Icmd*>	li;
 
 	client.busy = true;
@@ -65,6 +67,7 @@ int			Ia::feeder_voir(Client &client) {
 }
 
 int			Ia::feeder_pickup(Client &client) {
+	std::cout << "Pickup" << std::endl;
 	client.busy = true;
 	client.list_cmd.push_back(new Prend(&client, "nourriture"));
 	return (FEEDER_INIT);
@@ -76,6 +79,7 @@ int			Ia::feeder_goto(Client &client) {
 }
 
 int			Ia::feeder_stone(Client &client) {
+	std::cout << "Stone" << std::endl;
 	std::list<Icmd*>	li;
 
 	client.busy = true;
@@ -101,8 +105,9 @@ int			Ia::feeder_stone(Client &client) {
 }
 
 int			Ia::feeder_incant(Client &client) {
+	std::cout << "Incant" << std::endl;
 	client.busy = true;
 	level++;
-	client.list_cmd.push_back(new Incantation());
+	client.list_cmd.push_back(new Incantation(&client));
 	return (FEEDER_INIT);
 }

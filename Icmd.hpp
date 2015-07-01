@@ -164,7 +164,7 @@ class Broadcast : public Icmd
 class Incantation : public Icmd
 {
 	public:
-		Incantation();
+		Incantation(Client *new_client);
 		virtual ~Incantation();
 		std::string	getCmd();
 		void		execute();
